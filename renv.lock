@@ -86,6 +86,17 @@
       ],
       "Hash": "cad6cf7f1d5f6e906700b9d3e718c796"
     },
+    "babynames": {
+      "Package": "babynames",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "tibble"
+      ],
+      "Hash": "dc44c2887b6d6531d0a20de2fb4bfc08"
+    },
     "backports": {
       "Package": "backports",
       "Version": "1.4.1",
