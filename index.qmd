@@ -1,5 +1,14 @@
 ---
 title: "R Primers"
+toc: false
 ---
 
 A version of the old RStudio/Posit Primers, now with Quarto and webR.
+
+## License {.appendix}
+
+The original primers were developed by the RStudio/Posit Education Team and made [open source on GitHub](https://github.com/rstudio-education/primers). Following the original license, these tutorials are licensed under the Creative Commons Attribution-ShareAlike 4.0 License (CC BY-SA 4.0).
+
+The primers are derived from the book [*R for Data Science*](https://r4ds.had.co.nz/) from O'Reilly Media, Inc. Copyright © 2017 Garrett Grolemund, Hadley Wickham. Used with permission.
+
+[See here for the full license.](https://github.com/andrewheiss/r-primers/blob/main/LICENSE.md)

@@ -6,6 +6,9 @@ project:
 website:
   title: "R Primers"
   bread-crumbs: false
+  
+  repo-url: "https://github.com/andrewheiss/r-primers"
+  repo-actions: [edit, issue]
 
   navbar:
     pinned: true
@@ -35,6 +38,7 @@ website:
               - basics/02-programming-basics/05-types.qmd
               - basics/02-programming-basics/06-lists.qmd
               - basics/02-programming-basics/07-packages.qmd
+
       - section: "Work with data"
         contents:
           - section: "Working with tibbles"
