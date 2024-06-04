@@ -5,3 +5,5 @@
 
 /.quarto/
 _site/
+**_cache/
+**_files/

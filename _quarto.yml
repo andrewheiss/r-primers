@@ -45,9 +45,12 @@ website:
               - transform-data/01-tibbles/03-tidyverse.qmd
           - section: "Isolating data with {dplyr}"
             contents:
-              - text: "Welcome"
-              - text: "Blah"
-              - text: "Blah"
+              - transform-data/02-isolating/index.qmd
+              - transform-data/02-isolating/01-your-name.qmd
+              - transform-data/02-isolating/02-select.qmd
+              - transform-data/02-isolating/03-filter.qmd
+              - transform-data/02-isolating/04-arrange.qmd
+              - transform-data/02-isolating/05-pipe.qmd
           - section: "Deriving information with {dplyr}"
             contents:
               - text: "Welcome"

@@ -1,0 +1,89 @@
+---
+title: "Your name"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(babynames)
+
+source(here::here("R", "helpers.R"))
+```
+
+### The history of your name {.no-hide}
+
+You can use the data in `babynames` to make graphs like this, which reveal the history of a name, perhaps your name.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, out.width="90%"}
+babynames |> 
+  filter(name == "Andrew", sex == "M") |> 
+  ggplot() +
+    geom_line(aes(x = year, y = prop)) +
+    labs(title = "Popularity of the name Andrew")
+```
+
+But before you do, you will need to trim down `babynames`. At the moment, there are more rows in `babynames` than you need to build your plot. 
+
+### An example
+
+To see what I mean, consider how I made the plot above: I began with the entire dataset, which if plotted as a scatterplot would've looked like this.
+
+```{r plot-all-names, out.width="60%", cache=TRUE}
+ggplot(babynames) +
+  geom_point(aes(x = year, y = prop)) +
+  labs(title = "Popularity of every name in the dataset")
+```
+
+I then narrowed the data to just the rows that contain my name, before plotting the data with a line geom. Here's how the rows with just my name look as a scatterplot.
+
+```{r out.width="60%"}
+babynames |> 
+  filter(name == "Andrew", sex == "M") |> 
+  ggplot() +
+    geom_point(aes(x = year, y = prop)) +
+    labs(title = "Popularity of the name Andrew")
+```
+
+If I had skipped this step, my line graph would've connected all of the points in the large dataset, creating an uninformative graph.
+
+```{r out.width="60%", cached=TRUE}
+ggplot(babynames) +
+  geom_line(aes(x = year, y = prop)) +
+  labs(title = "Popularity of every name in the dataset")
+```
+
+Your goal in this section is to repeat this process for your own name (or a name that you choose). Along the way, you will learn a set of functions that isolate information within a dataset. 
+
+### Isolating data
+
+This type of task occurs often in data science: you need to extract data from a table before you can use it. You can do this task quickly with three functions that come in the {dplyr} package:
+
+1. **`select()`**, which extracts columns from a data frame
+1. **`filter()`**, which extracts rows from a data frame
+1. **`arrange()`**, which moves important rows to the top of a data frame
+
+Each function takes a data frame or tibble as its first argument and returns a new data frame or tibble as its output. 
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("02-select.html")
+```
