@@ -1,0 +1,53 @@
+---
+title: "Welcome"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+source(here::here("R", "helpers.R"))
+```
+
+Visualization is one of the most important tools for data science. 
+
+It is also a great way to start learning R; when you visualize data, you get an immediate payoff that will keep you motivated as you learn. After all, learning a new language can be hard!
+
+This tutorial will teach you how to visualize data with R's most popular visualization package, `ggplot2`.
+
+### 
+
+The tutorial focuses on three basic skills:
+
+1. How to create graphs with a reusable **template**
+1. How to add variables to a graph with **aesthetics**
+1. How to make different "types" of graphs with **geoms** 
+
+In this tutorial, we will use the [core tidyverse packages](http://tidyverse.org/), including `ggplot2`. I've already loaded the packages for you, so let's begin! 
+
+***
+
+These examples are excerpted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("02-code-template.html")
+```

@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*-- scss:defaults --*/
+// Tiepolo colors
+// MetBrewer::met.brewer("Tiepolo")
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue:    #17486f !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #802417 !default;
+$orange:  #c06636 !default;
+$yellow:  #e8b960 !default;
+$green:   #646e3b !default;
+$teal:    #2b5851 !default;
+$cyan:    #508ea2 !default;
+
+$primary:       $blue !default;
+$secondary:     $white !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $orange !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-900 !default;
+
+$font-family-sans-serif:      Inter, sans-serif !default;
+$font-family-serif:           Inter, serif !default;  /* Not actually a serif font but whatever */
+
+$font-size-base:              1rem !default;
+$headings-font-weight:        700 !default;
+
+// $h1-font-size: $font-size-base * 2.35;
+// $h2-font-size: $font-size-base * 1.8;
+// $h3-font-size: $font-size-base * 1.45;
+// $h4-font-size: $font-size-base * 1.1;
+// $h5-font-size: $font-size-base * 1;
+// $h6-font-size: $font-size-base * 0.8;
+// 
+// $toc-font-size: 0.95rem;
+// $sidebar-font-size: 1.1rem;
+// $sidebar-font-size-section: 0.95rem;
+// $footer-font-size: 0.95rem;
+// 
+// $link-color: $red;
+// $link-hover-color: $yellow;
+
+// Inline code
+$code-bg: $gray-200 !default;
+$code-color: $gray-900 !default;
+// 
+// // Block code
+// $monokai-bg: #2e3440;
+
+
+/*-- scss:rules --*/
+.hidden {
+  display: none;
+}
+
+#buttons {
+  padding-bottom: 600px;
+}
+
+.question {
+  input[type="submit"] {
+    margin-top: 0.75em;
+  }
+  
+  input[type="submit"] + div {
+    margin-top: 0.5em;
+  }
+}
+
+.navbar-dark .navbar-nav .show>.nav-link,
+.navbar-dark .navbar-nav .active>.nav-link,
+.navbar-dark .navbar-nav .nav-link.active,
+div.sidebar-item-container .active,
+div.sidebar-item-container .show>.nav-link,
+div.sidebar-item-container .sidebar-link>code{
+  color: $orange;
+  font-weight: bold;
+}

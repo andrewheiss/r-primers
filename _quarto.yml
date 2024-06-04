@@ -1,0 +1,63 @@
+project:
+  type: website
+
+website:
+  title: "R Primers"
+  bread-crumbs: false
+
+  navbar:
+    pinned: true
+    left:
+      - about.qmd
+  
+  sidebar: 
+    style: "docked"
+    collapse-level: 1
+    contents: 
+      - section: "The basics"
+        contents:
+          - section: "Data visualization basics"
+            contents:
+              - 02-viz-basics/01-welcome.qmd
+              - 02-viz-basics/02-code-template.qmd
+              - 02-viz-basics/03-aesthetic-mappings.qmd
+              - 02-viz-basics/04-geometric-objects.qmd
+              - 02-viz-basics/05-ggplot2-package.qmd
+          - section: "Programming basics"
+            contents:
+              - text: "Welcome"
+              - text: "Functions"
+              - text: "Arguments"
+              - text: "Objects"
+              - text: "Vectors"
+              - text: "Types"
+              - text: "Lists"
+      - section: "Work with data"
+        contents:
+          - section: "Working with tibbles"
+            contents:
+              - text: "Welcome"
+              - text: "Blah"
+              - text: "Blah"
+          - section: "Isolating data with {dplyr}"
+            contents:
+              - text: "Welcome"
+              - text: "Blah"
+              - text: "Blah"
+          - section: "Deriving information with {dplyr}"
+            contents:
+              - text: "Welcome"
+              - text: "Blah"
+              - text: "Blah"
+
+format:
+  html:
+    theme: 
+      - zephyr
+      - html/custom.scss
+    toc: true
+    toc-depth: 2
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300
