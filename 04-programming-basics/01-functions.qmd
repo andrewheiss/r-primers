@@ -1,0 +1,157 @@
+---
+title: "Functions"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+source(here::here("R", "helpers.R"))
+```
+
+### Functions {.no-hide}
+
+Watch [this video](https://vimeo.com/220490105):
+
+```{=html}
+<div class="ratio ratio-4x3">
+<iframe src="https://player.vimeo.com/video/220490105" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+```
+
+### Run a function
+
+Can you use the `sqrt()` function in the chunk below to compute the square root of 962?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+sqrt(961)
+```
+
+:::
+
+### Code
+
+Use the code chunk below to examine the code that `sqrt()` runs.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+sqrt
+```
+
+:::
+
+###
+
+Good job! `sqrt` immediately triggers a low level algorithm optimized for performance, so there is not much code to see.
+
+### lm
+
+Compare the code in `sqrt()` to the code in another R function, `lm()`. Examine `lm()`'s code body in the chunk below.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+lm
+```
+
+:::
+
+
+### Help pages
+
+Wow! `lm()` runs a lot of code. What does it do? Open the help page for `lm()` in the chunk below and find out.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+?lm
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+?lm
+```
+
+:::
+
+###
+
+Good job! `lm()` is R's function for fitting basic linear models. No wonder it runs so much code.
+
+
+### Code comments
+
+What do you think the chunk below will return? Run it and see. The result should be nothing. R will not run anything on a line after a `#` symbol. This is useful because it lets you write human readable comments in your code: just place the comments after a `#`. Now delete the `#` and re-run the chunk. You should see a result.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+# sqrt(961)
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+sqrt(961)
+```
+
+:::
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("02-arguments.html")
+```

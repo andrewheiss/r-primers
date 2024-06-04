@@ -125,8 +125,11 @@ The Grammar of Graphics provides a systematic way to build any graph, and it und
 
 The best way to understand the Grammar of Graphics is to see it explained in action:
 
-<iframe src="https://player.vimeo.com/video/223812632?h=05e2af1b10&color=428bca" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-<p><a href="https://vimeo.com/223812632">01-Data-Visualization</a> from <a href="https://vimeo.com/rstudioinc">RStudio, Inc.</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+```{=html}
+<div class="ratio ratio-4x3">
+<iframe src="https://player.vimeo.com/video/223812632" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+```
 
 ##
 

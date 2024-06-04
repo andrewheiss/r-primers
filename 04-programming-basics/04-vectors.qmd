@@ -1,0 +1,202 @@
+---
+title: "Vectors"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+source(here::here("R", "helpers.R"))
+```
+
+### Vectors {.no-hide}
+
+Watch [this video](https://vimeo.com/220490316):
+
+```{=html}
+<div class="ratio ratio-4x3">
+<iframe src="https://player.vimeo.com/video/220490316" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+```
+
+### Create a vector
+
+In the chunk below, create a vector that contains the integers from one to ten. Use the `c()` function.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+
+:::
+
+
+### `:`
+
+If your vector contains a sequence of contiguous integers, you can create it with the `:` shortcut. Run `1:10` in the chunk below. What do you get? What do you suppose `1:20` would return?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+1:10
+1:20
+```
+
+:::
+
+
+### `[]`
+
+You can extract any element of a vector by placing a pair of brackets behind the vector. Inside the brackets place the number of the element that you'd like to extract. For example, `vec[3]` would return the third element of the vector named `vec`.
+
+Use the chunk below to extract the fourth element of `vec`.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+vec <- c(1, 2, 4, 8, 16)
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+vec <- c(1, 2, 4, 8, 16)
+vec[4]
+```
+
+:::
+
+### More `[]`
+
+You can also use `[]` to extract multiple elements of a vector. Place the vector `c(1,2,5)` between the brackets below. What does R return?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+vec <- c(1, 2, 4, 8, 16)
+vec[]
+
+
+```
+
+## {{< fa lightbulb >}}&ensp;Hint
+
+**Hint:** ASDF
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+vec <- c(1, 2, 4, 8, 16)
+vec[c(1,2,5)]
+```
+
+:::
+
+
+### Names
+
+If the elements of your vector have names, you can extract them by name. To do so place a name or vector of names in the brackets behind a vector. Surround each name with quotation marks, e.g. `vec2[c("alpha", "beta")]`.
+
+Extract the element named gamma from the vector below.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+vec2 <- c(alpha = 1, beta = 2, gamma = 3)
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+vec2 <- c(alpha = 1, beta = 2, gamma = 3)
+vec2["gamma"]
+```
+
+:::
+
+
+### Vectorised operations
+
+Predict what the code below will return. Then look at the result.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) + c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+
+```
+
+:::
+
+###
+
+Good job! Like many R functions, R's math operators are vectorized: they're designed to work with vectors by repeating the operation for each pair of elements.
+
+### Vector recycling
+
+Predict what the code below will return. Then look at the result.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+1 + c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+
+```
+
+:::
+
+###
+
+Good job! Whenever you try to work with vectors of varying lengths (recall that `1` is a vector of length one), R will repeat the shorter vector as needed to compute the result.
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("05-types.html")
+```

@@ -33,7 +33,7 @@ The R language is subdivided into __packages__, small collections of data sets a
 
 When you first install R, you get a small collection of core packages known as __base R__. The remaining packages---there are over 10,000 of them---are optional. You don't need to install them unless you want to use them.
 
-ggplot2 is one of these optionals packages, so are the other packages that we will look at in these tutorials. Some of the most popular and most modern parts of R come in the optional packages.
+ggplot2 is one of these optional packages, so are the other packages that we will look at in these tutorials. Some of the most popular and most modern parts of R come in the optional packages.
 
 You don't need to worry about installing packages in these tutorials. Each tutorial comes with all of the packages that you need pre-installed; this is how we make the tutorials easy to use.
 
