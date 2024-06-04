@@ -1,0 +1,92 @@
+---
+title: "The most popular names"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(babynames)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+### What are the most popular names of all time? {.no-hide}
+
+Let's use `babynames` to answer a different question: what are the most popular names of all time?
+
+This question seems simple enough, but to answer it we need to be more precise: how do you define "the most popular" names? Try to think of several definitions and then click Continue. After the Continue button, I will suggest two definitions of my own.
+
+### Two definitions of popular
+
+I suggest that we focus on two definitions of _popular_, one that uses sums and one that uses ranks:
+
+1. **Sums** - A name is popular _if the total number of children that have the name is large when you sum across years_.
+2. **Ranks** - A name is popular _if it consistently ranks among the top names from year to year_.
+
+This raises a question:
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Do we have enough information in `babynames` to compare the popularity of names?**
+
+```{r predict, echo=FALSE}
+check_question(
+  answer = "Yes. We can use the information in `babynames` to compute the values we want.", 
+  options = c(
+   "No. No cell in `babynames` contains a rank value or a sum across years.",
+   "Yes. We can use the information in `babynames` to compute the values we want."
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 1,
+  right = c("Correct!")
+)
+```
+:::
+
+### Deriving information
+
+Every data frame that you meet implies more information than it displays. For example, `babynames` does not display the total number of children who had your name, but `babynames` certainly implies what that number is. To discover the number, you only need to do a calculation:
+
+```{r}
+babynames |> 
+  filter(name == "Andrew", sex == "M") |> 
+  summarize(total = sum(n))
+```
+
+### Useful functions
+
+{dplyr} provides three functions that can help you reveal the information implied by your data: 
+
+* `summarize()`  
+* `group_by()`  
+* `mutate()`
+
+Like `select()`, `filter()` and `arrange()`, these functions all take a data frame as their first argument and return a new data frame as their output, which makes them easy to use in pipes.
+
+Let's master each function and use them to analyze popularity as we go.
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("02-summarize.html")
+```

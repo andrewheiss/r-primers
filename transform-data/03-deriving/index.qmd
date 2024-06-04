@@ -1,0 +1,40 @@
+---
+title: "Welcome"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+source(here::here("R", "helpers.R"))
+```
+
+In this case study, you will identify the most popular American names from 1880 to 2015. While doing this, you will master three more dplyr functions:
+
+* `mutate()`, `group_by()`, and `summarize()`, which help you use your data to compute new variables and summary statistics
+
+These are some of the most useful R functions for data science, and this tutorial provides everything you need to learn them. 
+
+This tutorial uses the [core tidyverse packages](http://tidyverse.org/), including {ggplot2}, {tibble}, and {dplyr}, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("01-most-popular-names.html")
+```

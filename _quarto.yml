@@ -53,9 +53,12 @@ website:
               - transform-data/02-isolating/05-pipe.qmd
           - section: "Deriving information with {dplyr}"
             contents:
-              - text: "Welcome"
-              - text: "Blah"
-              - text: "Blah"
+              - transform-data/03-deriving/index.qmd
+              - transform-data/03-deriving/01-most-popular-names.qmd
+              - transform-data/03-deriving/02-summarize.qmd
+              - transform-data/03-deriving/03-group_by.qmd
+              - transform-data/03-deriving/04-mutate.qmd
+              - transform-data/03-deriving/05-challenges.qmd
 
 format:
   html:

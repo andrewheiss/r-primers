@@ -1,0 +1,284 @@
+---
+title: "`mutate()`"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - babynames
+    - dplyr
+    - ggplot2
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(babynames)
+
+source(here::here("R", "helpers.R"))
+```
+
+### The total number of children by year {.no-hide}
+
+Why might there be a difference between the _proportion_ of children who receive a name over time, and the _number_ of children who receive the name?
+
+An obvious culprit could be the total number of children born per year. If more children are born each year, the number of children who receive a name could grow even if the proportion of children given that name declines.
+
+Test this theory in the chunk below. Use `babynames` and groupwise summaries to compute the total number of children born each year and then to plot that number vs. year in a line graph.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+babynames |> 
+  group_by(year) |> 
+  summarize(n = sum(n)) |> 
+  ggplot() +
+    geom_line(aes(x = year, y = n))
+```
+
+:::
+
+
+### Popularity based on rank
+
+The graph above suggests that our first definition of popularity is confounded with population growth: the most popular names in 2015 likely represent far more children than the most popular names in 1880. The total number of children given a name may still be the best definition of popularity to use, but it will overweight names that have been popular in recent years.
+
+There is also evidence that our definition is confounded with a gender effect: only one of the top ten names was a girl's name.
+
+If you are concerned about these things, you might prefer to use our second definition of popularity, which would give equal representation to each year and gender:
+
+2. **Ranks**: A name is popular _if it consistently ranks among the top names from year to year_.
+
+To use this definition, we could:
+
+1. Compute the rank of each name within each year and gender. The most popular name would receive the rank 1 and so on. 
+2. Find the median rank for each name, accounting for gender. The names with the lowest median would be the names that "consistently rank among the top names from year to year."
+
+To do this, we will need to learn one last {dplyr} function.
+
+### `mutate()`
+
+`mutate()` uses a data frame to compute new variables. It then returns a copy of the data frame that includes the new variables. For example, we can use `mutate()` to compute a `percent` variable for `babynames`. Here percent is just the `prop` multiplied by 100 and rounded to two decimal places.
+
+```{r}
+babynames |>
+  mutate(percent = round(prop * 100, 2))
+```
+
+Watch this animation to help with the intuition. `mutate()` adds a new column to the left side of the data frame:
+
+```{=html}
+<video controls width="100%" style="display: block; margin: auto;">
+  <source src="video/mutate.mp4" type="video/mp4">
+</video>
+```
+
+### Exercise: `mutate()`
+
+The syntax of mutate is similar to `summarize()`. `mutate()` takes first a data frame, and then one or more named arguments that are set equal to R expressions. `mutate()` turns each named argument into a column. The name of the argument becomes the column name and the result of the R expression becomes the column contents.
+
+Use `mutate()` in the chunk below to create a `births` column, the result of dividing `n` by `prop`. You can think of `births` as a sanity check; it uses each row to double check the number of boys or girls that were born each year. If all is well, the numbers will agree across rows (allowing for rounding errors).
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+babynames |> 
+  mutate(births = n / prop)
+```
+
+:::
+
+### Vectorized functions
+
+Like `summarize()`, `mutate()` works in combination with a specific type of function. `summarize()` expects summary functions, which take vectors of input and return _single_ values. `mutate()` expects **vectorized functions**, which take vectors of input and return _vectors_ of values.
+
+In other words, summary functions like `min()` and `max()` won't work well with `mutate()`. You can see why if you take a moment to think about what `mutate()` does: `mutate()` adds a new column to the original data set. In R, every column in a dataset must be the same length, so `mutate()` must supply as many values for the new column as there are in the existing columns. 
+
+If you give `mutate()` an expression that returns a single value, it will follow R's recycling rules and repeat that value as many times as needed to fill the column. This can make sense in some cases, but the reverse is never true: you cannot give `summarize()` a vectorized function; `summarize()` needs its input to return a single value.
+
+What are some of R's vectorized functions? Click Continue to find out.
+
+### The most useful vectorized functions
+
+Some of the most useful vectorised functions in R to use with `mutate()` include:
+
+1. **Arithmetic operators**: `+`, `-`, `*`, `/`, `^`. These are all vectorised, using R's so called "recycling rules". If one vector of input is shorter than the other, it will automatically be repeated multiple times to create a vector of the same length. 
+1. **Modular arithmetic**: `%/%` (integer division) and `%%` (remainder)
+1. **Logical comparisons**, `<`, `<=`, `>`, `>=`, `!=`
+1. **Logs**: `log(x)`, `log2(x)`, `log10(x)`
+1. **Offsets**: `lead(x)`, `lag(x)`
+1. **Cumulative aggregates**: `cumsum(x)`, `cumprod(x)`, `cummin(x)`, `cummax(x)`, `cummean(x)`
+1. **Ranking**: `min_rank(x)`, `row_number(x)`, `dense_rank(x)`, `percent_rank(x)`, `cume_dist(x)`, `ntile(x)`
+
+For ranking, I recommend that you use `min_rank()`, which gives the smallest values the top ranks. To rank in descending order, use the familiar `desc()` function, e.g.
+
+```{r}
+min_rank(c(50, 100, 1000))
+min_rank(desc(c(50, 100, 1000)))
+```
+
+### Exercise: Ranks
+
+Let's practice by ranking the entire dataset based on `prop`. In the chunk below, use `mutate()` and `min_rank()` to rank each row based on its `prop` value, with the highest values receiving the top ranks.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+babynames |> 
+  mutate(rank = min_rank(desc(prop)))
+```
+
+:::
+
+
+### Rankings by group
+
+In the previous exercise, we assigned rankings across the entire data set. For example, with the exception of ties, there was only one 1 _in the entire data set_, only one 2, and so on. To calculate a popularity score across years, you will need to do something different: you will need to assign rankings within groups of year and sex. Now there will be one 1 _in each group of year and sex_.
+
+To rank within groups, combine `mutate()` with `group_by()`. Like {dplyr}'s other functions, `mutate()` will treat grouped data in a group-wise fashion.
+
+Watch this animation to help with the intuition:
+
+```{=html}
+<video controls width="100%" style="display: block; margin: auto;">
+  <source src="video/grp-mutate.mp4" type="video/mp4">
+</video>
+```
+
+###
+
+Add `group_by()` to our code from above, to calculate ranking within year and sex combinations. Do you notice the numbers change?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+babynames |> 
+  mutate(rank = min_rank(desc(prop)))
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+babynames |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(prop)))
+```
+
+:::
+
+### The most popular names by yearly rankings
+
+`group_by()` provides the missing piece for calculating our second measure of popularity. In the code chunk below,
+
+1. Group `babynames` by `year` and `sex`
+1. Assign a rank to each name based on descending values of `prop`
+1. Regroup the data by `name` and `sex`
+1. Compute the median ranking for each name and sex combination
+1. Arrange the results so the names with the lowest sum appear at the top of the data set.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+babynames |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(prop))) |> 
+  group_by(name, sex) |> 
+  summarize(score = median(rank)) |> 
+  arrange(score)
+```
+
+:::
+
+###
+
+Congratulations! Our second provides a different picture of popularity. Here we see names that have been consistently popular over time, including new entries like Elizabeth and Thomas.
+
+
+### Recap
+
+In this primer, you learned three functions for isolating data within a table: 
+
+* `select()`
+* `filter()`
+* `arrange()`
+
+You also learned three functions for deriving new data from a table: 
+
+* `summarize()`
+* `group_by()`
+* `mutate()`
+
+Together these six functions create a _grammar_ of data manipulation, a system of verbs that you can use to manipulate data in a sophisticated, step-by-step way. These verbs target the everyday tasks of data analysis. No matter which types of data you work with, you will discover that:
+
+1. _Data sets often contain more information than you need_
+1. _Data sets imply more information than they display_
+
+The six dplyr functions help you work with these realities by isolating and revealing the information contained in your data. In fact, {dplyr} provides more than six functions for this grammar: {dplyr} comes with several functions that are variations on the themes of `select()`, `filter()`, `summarize()`, and `mutate()`. Each follows the same pipeable syntax that is used throughout dplyr. If you are interested, you can learn more about these peripheral functions in the [{dplyr} cheatsheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html).
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("05-challenges.html")
+```
