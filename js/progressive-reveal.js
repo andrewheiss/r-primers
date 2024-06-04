@@ -11,22 +11,32 @@ function revealSection(sectionIndex) {
   sections[sectionIndex].classList.remove('hidden');
 }
 
-document.getElementById('continueButton').addEventListener('click', function() {
-    currentSection++;
-    if (currentSection < sections.length) {
-        revealSection(currentSection);
-        localStorage.setItem(key, currentSection);
-        // Jump to the id anchor for the current section
-        window.location.hash = sections[currentSection].id;
-        // Adjust scroll position to account for the height of the navbar
-        window.scrollBy(0, 70);
-    }
-    
-    if (currentSection >= sections.length - 1) {
-        document.getElementById('continueButton').disabled = true;
-        document.getElementById('nextTopicButton').classList.remove('disabled');
-    }
-});
+var continueButton = document.getElementById('continueButton');
+var nextTopicButton = document.getElementById('nextTopicButton');
+
+// Disable continue button if there are no sections
+if (sections.length === 0) {
+    continueButton.disabled = true;
+    nextTopicButton.classList.remove('disabled');
+// Otherwise progressively reveal sections
+} else {
+    continueButton.addEventListener('click', function () {
+        currentSection++;
+        if (currentSection < sections.length) {
+            revealSection(currentSection);
+            localStorage.setItem(key, currentSection);
+            // Jump to the id anchor for the current section
+            window.location.hash = sections[currentSection].id;
+            // Adjust scroll position to account for the height of the navbar
+            window.scrollBy(0, 70);
+        }
+
+        if (currentSection >= sections.length - 1) {
+            continueButton.disabled = true;
+            nextTopicButton.classList.remove('disabled');
+        }
+    });
+}
 
 // On page load, reveal up to the current section
 window.onload = function () {
