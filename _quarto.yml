@@ -39,9 +39,10 @@ website:
         contents:
           - section: "Working with tibbles"
             contents:
-              - text: "Welcome"
-              - text: "Blah"
-              - text: "Blah"
+              - transform-data/01-tibbles/index.qmd
+              - transform-data/01-tibbles/01-babynames.qmd
+              - transform-data/01-tibbles/02-tibbles.qmd
+              - transform-data/01-tibbles/03-tidyverse.qmd
           - section: "Isolating data with {dplyr}"
             contents:
               - text: "Welcome"
