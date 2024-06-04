@@ -303,5 +303,5 @@ Nice job! `class` and `drv` are both categorical variables. As a result, points 
 ```{r}
 #| echo: false
 #| results: asis
-create_buttons("03-aesthetic-mappings.html")
+create_buttons("02-aesthetic-mappings.html")
 ```

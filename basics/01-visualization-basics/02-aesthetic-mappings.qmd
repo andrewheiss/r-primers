@@ -392,5 +392,5 @@ This raises a new question that we've only brushed over: what is a geom?
 ```{r}
 #| echo: false
 #| results: asis
-create_buttons("04-geometric-objects.html")
+create_buttons("03-geometric-objects.html")
 ```

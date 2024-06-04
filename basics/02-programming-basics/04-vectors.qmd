@@ -116,10 +116,6 @@ vec[]
 
 ```
 
-## {{< fa lightbulb >}}&ensp;Hint
-
-**Hint:** ASDF
-
 ## {{< fa circle-check >}}&ensp;Solution
 
 ```r

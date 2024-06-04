@@ -49,5 +49,5 @@ These examples are excerpted from _R for Data Science_ by Hadley Wickham and Gar
 ```{r}
 #| echo: false
 #| results: asis
-create_buttons("02-code-template.html")
+create_buttons("01-code-template.html")
 ```

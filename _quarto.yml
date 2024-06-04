@@ -20,21 +20,21 @@ website:
         contents:
           - section: "Data visualization basics"
             contents:
-              - 02-viz-basics/index.qmd
-              - 02-viz-basics/02-code-template.qmd
-              - 02-viz-basics/03-aesthetic-mappings.qmd
-              - 02-viz-basics/04-geometric-objects.qmd
-              - 02-viz-basics/05-ggplot2-package.qmd
+              - basics/01-visualization-basics/index.qmd
+              - basics/01-visualization-basics/01-code-template.qmd
+              - basics/01-visualization-basics/02-aesthetic-mappings.qmd
+              - basics/01-visualization-basics/03-geometric-objects.qmd
+              - basics/01-visualization-basics/04-ggplot2-package.qmd
           - section: "Programming basics"
             contents:
-              - 04-programming-basics/index.qmd
-              - 04-programming-basics/01-functions.qmd
-              - 04-programming-basics/02-arguments.qmd
-              - 04-programming-basics/03-objects.qmd
-              - 04-programming-basics/04-vectors.qmd
-              - 04-programming-basics/05-types.qmd
-              - 04-programming-basics/06-lists.qmd
-              - 04-programming-basics/07-packages.qmd
+              - basics/02-programming-basics/index.qmd
+              - basics/02-programming-basics/01-functions.qmd
+              - basics/02-programming-basics/02-arguments.qmd
+              - basics/02-programming-basics/03-objects.qmd
+              - basics/02-programming-basics/04-vectors.qmd
+              - basics/02-programming-basics/05-types.qmd
+              - basics/02-programming-basics/06-lists.qmd
+              - basics/02-programming-basics/07-packages.qmd
       - section: "Work with data"
         contents:
           - section: "Working with tibbles"
