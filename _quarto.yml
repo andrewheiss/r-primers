@@ -20,7 +20,7 @@ website:
         contents:
           - section: "Data visualization basics"
             contents:
-              - 02-viz-basics/01-welcome.qmd
+              - 02-viz-basics/index.qmd
               - 02-viz-basics/02-code-template.qmd
               - 02-viz-basics/03-aesthetic-mappings.qmd
               - 02-viz-basics/04-geometric-objects.qmd
