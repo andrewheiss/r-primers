@@ -33,9 +33,10 @@ If variation describes the behavior _within_ a variable, covariation describes t
 
 ### Two categorical variables
 
-You can plot the relationship between two categorical variables with a heatmap or with geom_count:
+You can plot the relationship between two categorical variables with a heatmap or with `geom_count()`:
 
-```{r echo=FALSE, out.width="50%"}
+```{r echo=FALSE, out.width="100%"}
+#| layout-ncol: 2
 diamonds |> 
   count(color, cut) |> 
   ggplot(mapping = aes(x = color, y = cut)) +
