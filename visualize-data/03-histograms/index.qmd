@@ -1,0 +1,42 @@
+---
+title: "Histograms"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+source(here::here("R", "helpers.R"))
+```
+
+**Histograms** are the most popular way to visualize continuous distributions. Here we will look at them and their derivatives. You will learn how to:
+
+* Make and interpret histograms
+* Adjust the **binwidth** of a histogram to reveal new information
+* Use geoms that are similar to histograms, such as __dotplots__, __frequency polygons__, and __densities__
+
+The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+
+The tutorial uses the {ggplot2} and {dplyr} packages, which have been pre-loaded for your convenience.
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("01-histograms.html")
+```
