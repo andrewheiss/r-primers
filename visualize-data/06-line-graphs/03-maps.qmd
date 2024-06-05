@@ -7,7 +7,6 @@ format:
     include-after-body: 
       - text: |
           <script src="/js/progressive-reveal.js"></script>
-          <script src="/js/bootstrapify.js"></script>
 
 engine: knitr
 filters:
@@ -39,7 +38,6 @@ knitr::opts_chunk$set(
 
 library(tidyverse)
 library(sf)
-library(checkdown)
 
 tx <- map_data("state", region = "texas")
 us <- map_data("state")
