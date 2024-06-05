@@ -76,6 +76,17 @@
       ],
       "Hash": "45f0398006e83a5b10b72a90663d8d8c"
     },
+    "Rcpp": {
+      "Package": "Rcpp",
+      "Version": "1.0.12",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "methods",
+        "utils"
+      ],
+      "Hash": "5ea2700d21e038ace58269ecdbeb9ec0"
+    },
     "askpass": {
       "Package": "askpass",
       "Version": "1.2.0",
@@ -556,6 +567,22 @@
         "withr"
       ],
       "Hash": "44c6a2f8202d5b7e878ea274b1092426"
+    },
+    "ggrepel": {
+      "Package": "ggrepel",
+      "Version": "0.9.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp",
+        "ggplot2",
+        "grid",
+        "rlang",
+        "scales",
+        "withr"
+      ],
+      "Hash": "cc3361e234c4a5050e29697d675764aa"
     },
     "glue": {
       "Package": "glue",
