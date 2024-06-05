@@ -14,6 +14,10 @@ website:
     pinned: true
     left:
       - about.qmd
+    right:
+      - icon: github
+        aria-label: github
+        href: https://github.com/andrewheiss/r-primers
   
   sidebar: 
     style: "docked"
