@@ -1,0 +1,144 @@
+---
+title: "Aesthetics"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - ggplot2
+    - dplyr
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+
+### Aesthetics for bars {.no-hide}
+
+`geom_bar()` and `geom_col()` can use several aesthetics:
+
+* `alpha`
+* `color`
+* `fill`
+* `linetype`
+* `size`
+
+One of these, `color`, creates the most surprising results. Predict what the code below will return and then run it.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, color = cut))
+
+
+```
+
+:::
+
+### `fill`
+
+The `color` aesthetic controls the outline of each bar in your bar plot, which may not be what you want. To color the interior of each bar, use the `fill` aesthetic:
+
+```{r echo=FALSE, out.width="100%"}
+#| layout-ncol: 2
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, color = cut), linewidth = 1) + 
+  labs(title = "color = cut")
+
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = cut)) + 
+  labs(title = "fill = cut")
+```
+
+Use the code chunk below to experiment with fill, along with other `geom_bar()` aesthetics, like `alpha`, `linetype`, and `size`.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, color = cut))
+
+
+```
+
+:::
+
+
+### Width
+
+You can control the width of each bar in your bar chart with the `width` parameter. In the chunk below, set `width = 1`, then `width = 0.5`. Can you spot the difference?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = cut), width = 0.9)
+
+
+```
+
+:::
+
+Notice that width is a _parameter_, not an aesthetic mapping. Hence, you should set width _outside_ of the `aes()` function.
+
+### Exercise 5: Aesthetics
+
+Create a colored bar chart of the `class` variable from the `mpg` data set, which comes with ggplot2. Map the interior color of each bar to `class`.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = mpg) +
+  geom_bar(mapping = aes(x = class, fill = class))
+```
+
+:::
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("03-position-adjustments.html")
+```
