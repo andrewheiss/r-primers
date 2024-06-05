@@ -23,50 +23,31 @@ website:
     style: "docked"
     collapse-level: 2
     contents: 
-      - section: "The basics"
+      - section: "Basics"
         contents:
-          - section: "Data visualization basics"
-            contents:
-              - basics/01-visualization-basics/index.qmd
-              - basics/01-visualization-basics/01-code-template.qmd
-              - basics/01-visualization-basics/02-aesthetic-mappings.qmd
-              - basics/01-visualization-basics/03-geometric-objects.qmd
-              - basics/01-visualization-basics/04-ggplot2-package.qmd
-          - section: "Programming basics"
-            contents:
-              - basics/02-programming-basics/index.qmd
-              - basics/02-programming-basics/01-functions.qmd
-              - basics/02-programming-basics/02-arguments.qmd
-              - basics/02-programming-basics/03-objects.qmd
-              - basics/02-programming-basics/04-vectors.qmd
-              - basics/02-programming-basics/05-types.qmd
-              - basics/02-programming-basics/06-lists.qmd
-              - basics/02-programming-basics/07-packages.qmd
+        - auto: "basics/01-visualization-basics"
+        - auto: "basics/02-programming-basics"
 
-      - section: "Work with data"
+      - section: "Transform data"
         contents:
-          - section: "Working with tibbles"
-            contents:
-              - transform-data/01-tibbles/index.qmd
-              - transform-data/01-tibbles/01-babynames.qmd
-              - transform-data/01-tibbles/02-tibbles.qmd
-              - transform-data/01-tibbles/03-tidyverse.qmd
-          - section: "Isolating data with {dplyr}"
-            contents:
-              - transform-data/02-isolating/index.qmd
-              - transform-data/02-isolating/01-your-name.qmd
-              - transform-data/02-isolating/02-select.qmd
-              - transform-data/02-isolating/03-filter.qmd
-              - transform-data/02-isolating/04-arrange.qmd
-              - transform-data/02-isolating/05-pipe.qmd
-          - section: "Deriving information with {dplyr}"
-            contents:
-              - transform-data/03-deriving/index.qmd
-              - transform-data/03-deriving/01-most-popular-names.qmd
-              - transform-data/03-deriving/02-summarize.qmd
-              - transform-data/03-deriving/03-group_by.qmd
-              - transform-data/03-deriving/04-mutate.qmd
-              - transform-data/03-deriving/05-challenges.qmd
+        - auto: "transform-data/01-tibbles"
+        - auto: "transform-data/02-isolating"
+        - auto: "transform-data/03-deriving"
+
+      - section: "Visualize data"
+        contents:
+        - auto: "visualize-data/01-eda"
+        - auto: "visualize-data/02-bar-charts"
+        - auto: "visualize-data/03-histograms"
+        - auto: "visualize-data/04-boxplots"
+        - auto: "visualize-data/05-scatterplots"
+        - auto: "visualize-data/06-line-graphs"
+        - auto: "visualize-data/07-overplotting"
+        - auto: "visualize-data/08-customize"
+
+      - section: "Tidy data"
+        contents:
+        - auto: "tidy-data/01-reshape-data"
 
 format:
   html:

@@ -1,5 +1,5 @@
 ---
-title: "Welcome"
+title: "Deriving information with {dplyr}"
 format:
   html: 
     toc: false

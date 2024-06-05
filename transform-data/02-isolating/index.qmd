@@ -1,5 +1,5 @@
 ---
-title: "Welcome"
+title: "Isolating data with {dplyr}"
 format:
   html: 
     toc: false
