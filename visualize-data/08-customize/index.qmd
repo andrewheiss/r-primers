@@ -1,0 +1,43 @@
+---
+title: "Customize your plots"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+source(here::here("R", "helpers.R"))
+```
+
+This tutorial will teach you how to customize the look and feel of your plots. You will learn how to:
+
+* **Zoom in** on areas of interest
+* Add **labels** and **annotations** to your plots
+* Change the appearance of your plot with a **theme**
+* Use **scales** to select custom color palettes
+* Modify the labels, title, and position of **legends**
+
+The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+
+The tutorial uses the {ggplot2}, {dplyr}, {scales}, {ggthemes}, and {viridis} packages, which have been pre-loaded for your convenience.
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("01-zooming.html")
+```
