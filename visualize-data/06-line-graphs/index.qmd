@@ -31,7 +31,7 @@ In this tutorial, you'll learn how to:
 * Find and plot map data with `geom_sf()`
 * Transform a coordinate system into a map projection with `coord_sf()`
 
-The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+The tutorial is adapted from [_R for Data Science_](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
 
 The tutorial uses the {ggplot2}, {sf}, and {dplyr} packages, which have been pre-loaded for your convenience.
 

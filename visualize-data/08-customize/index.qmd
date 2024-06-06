@@ -30,7 +30,7 @@ This tutorial will teach you how to customize the look and feel of your plots. Y
 * Use **scales** to select custom color palettes
 * Modify the labels, title, and position of **legends**
 
-The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+The tutorial is adapted from [_R for Data Science_](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
 
 The tutorial uses the {ggplot2}, {dplyr}, {scales}, {ggthemes}, and {viridis} packages, which have been pre-loaded for your convenience.
 
