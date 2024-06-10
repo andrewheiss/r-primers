@@ -38,6 +38,11 @@ library(tidyverse)
 source(here::here("R", "helpers.R"))
 ```
 
+```{webr-r}
+#| context: setup
+library(babynames)
+```
+
 ### What is a tibble? {.no-hide}
 
 A tibble is a special type of table. R displays tibbles in a refined way whenever you have the **tibble** package loaded: R will print only the first ten rows of a tibble as well as all of the columns that fit into your console window. R also adds useful summary information about the tibble, such as the data types of each column and the size of the data set. 
