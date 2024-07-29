@@ -49,7 +49,7 @@ Can you use the `sqrt()` function in the chunk below to compute the square root 
 ## {{< fa circle-check >}}&ensp;Solution
 
 ```r
-sqrt(961)
+sqrt(962)
 ```
 
 :::
