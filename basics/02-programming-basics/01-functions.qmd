@@ -49,7 +49,7 @@ Can you use the `sqrt()` function in the chunk below to compute the square root 
 ## {{< fa circle-check >}}&ensp;Solution
 
 ```r
-sqrt(961)
+sqrt(962)
 ```
 
 :::
@@ -135,7 +135,7 @@ What do you think the chunk below will return? Run it and see. The result should
 ## {{< fa code >}}&ensp;Interactive editor
 
 ```{webr-r}
-# sqrt(961)
+# sqrt(962)
 
 
 ```
@@ -143,7 +143,7 @@ What do you think the chunk below will return? Run it and see. The result should
 ## {{< fa circle-check >}}&ensp;Solution
 
 ```r
-sqrt(961)
+sqrt(962)
 ```
 
 :::
