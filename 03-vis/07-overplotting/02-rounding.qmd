@@ -84,7 +84,7 @@ ggplot(data = mpg) +
 
 ### Review: jitter
 
-In the [Scatterplots tutorial](/visualize-data/05-scatterplots/02-layers.qmd), you learned of a geom that displays the equivalent of `geom_point()` with a `position = "jitter"` adjustment.
+In the [Scatterplots tutorial](/03-viz/07-layers.qmd), you learned of a geom that displays the equivalent of `geom_point()` with a `position = "jitter"` adjustment.
 
 Rewrite the code below to use that geom. Do you obtain similar results?
 

@@ -35,7 +35,7 @@
     "text": "Continue\n\n\nStart over",
     "crumbs": [
       "About",
-      "Tidy Data",
+      "Reshape data",
       "Long to wide"
     ]
   },
@@ -47,7 +47,7 @@
     "text": "In the exploratory data analysis primer, we proposed three definitions that are useful for data science:\n\nA variable is a quantity, quality, or property that you can measure.\nA value is the state of a variable when you measure it. The value of a variable may change from measurement to measurement.\nAn observation is a set of measurements that are made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object). An observation will contain several values, each associated with a different variable. I’ll sometimes refer to an observation as a case or data point.\n\nThese definitions are tied to the concept of tidy data. To see how, let’s apply the definitions to some real data.",
     "crumbs": [
       "About",
-      "Tidy Data",
+      "Reshape data",
       "Tidy data"
     ]
   },
@@ -59,7 +59,7 @@
     "text": "Continue\n\nNext topic Start over",
     "crumbs": [
       "About",
-      "Tidy Data",
+      "Reshape data",
       "Tidy data"
     ]
   },
@@ -481,7 +481,7 @@
     "href": "03-vis/01-02-eda/01-eda.html",
     "title": "Exploratory data analysis",
     "section": "",
-    "text": "EDA is an iterative cycle that helps you understand what your data says. When you do EDA, you:\n\nGenerate questions about your data\nSearch for answers by visualizing, transforming, and/or modeling your data\nUse what you learn to refine your questions and/or generate new questions\n\nEDA is an important part of any data analysis. You can use EDA to make discoveries about the world; or you can use EDA to ensure the quality of your data, asking questions about whether the data meets your standards or not.",
+    "text": "EDA is an iterative cycle that helps you understand what your data says. When you do EDA, you:\n\nGenerate questions/hypotheses about your data\nSearch for answers by visualizing, transforming, and/or modeling your data\nUse what you learn to refine your questions and/or generate new questions\n\nEDA is an important part of any data analysis. You can use EDA to make discoveries about the world; or you can use EDA to ensure the quality of your data, asking questions about whether the data meets your standards or not.",
     "crumbs": [
       "About",
       "Visualize Data",
@@ -1659,7 +1659,7 @@
     "text": "Continue\n\nNext topic Start over",
     "crumbs": [
       "About",
-      "Tidy Data",
+      "Reshape data",
       "Wide to long"
     ]
   },

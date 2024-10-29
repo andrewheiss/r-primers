@@ -41,7 +41,7 @@ source(here::here("R", "helpers.R"))
 
 ### How to make a bar chart {.no-hide}
 
-To make a bar chart with {ggplot2}, add `geom_bar()` to the [ggplot2 template](/basics/01-visualization-basics/01-code-template.qmd). For example, the code below plots a bar chart of the `cut` variable in the `diamonds` dataset, which comes with {ggplot2}.
+To make a bar chart with {ggplot2}, add `geom_bar()` to the [ggplot2 template](/01-basics/01-visualization-basics/01-code-template.qmd). For example, the code below plots a bar chart of the `cut` variable in the `diamonds` dataset, which comes with {ggplot2}.
 
 ```{r out.width="80%"}
 ggplot(data = diamonds) +

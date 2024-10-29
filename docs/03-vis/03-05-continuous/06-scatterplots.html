@@ -306,7 +306,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"classes":"","warning":"true","editor-quick-suggestions":"false","context":"interactive","output":"true","label":"unnamed-chunk-1","dpi":72,"out-height":"","fig-width":"6","results":"markup","comment":"","fig-cap":"","editor-font-scale":"0.85","fig-height":"3.7","autorun":"false","message":"true","read-only":"false","editor-max-height":"","out-width":"70%"},"code":"mpg |> \n  group_by(class) |> \n  summarize(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> \n  ggplot()\n"},{"id":2,"options":{"classes":"","warning":"true","editor-quick-suggestions":"false","context":"interactive","output":"true","label":"unnamed-chunk-2","dpi":72,"out-height":"","fig-width":"6","results":"markup","comment":"","fig-cap":"","editor-font-scale":"0.85","fig-height":"3.7","autorun":"false","message":"true","read-only":"false","editor-max-height":"","out-width":"70%"},"code":"mpg |> \n  group_by(class) |> \n  summarize(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> \n  ggplot() +\n    geom_point(mapping = aes(x = mean_cty, y = mean_hwy))\n"},{"id":3,"options":{"classes":"","warning":"true","editor-quick-suggestions":"false","context":"interactive","output":"true","label":"unnamed-chunk-3","dpi":72,"out-height":"","fig-width":"6","results":"markup","comment":"","fig-cap":"","editor-font-scale":"0.85","fig-height":"3.7","autorun":"false","message":"true","read-only":"false","editor-max-height":"","out-width":"70%"},"code":"mpg |> \n  group_by(class) |> \n  summarize(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> \n  ggplot() \n"}];
+globalThis.qwebrCellDetails = [{"code":"mpg |> \n  group_by(class) |> \n  summarize(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> \n  ggplot()\n","id":1,"options":{"editor-max-height":"","out-height":"","fig-height":"3.7","classes":"","fig-cap":"","output":"true","editor-font-scale":"0.85","dpi":72,"out-width":"70%","context":"interactive","comment":"","fig-width":"6","editor-quick-suggestions":"false","results":"markup","message":"true","warning":"true","read-only":"false","autorun":"false","label":"unnamed-chunk-1"}},{"code":"mpg |> \n  group_by(class) |> \n  summarize(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> \n  ggplot() +\n    geom_point(mapping = aes(x = mean_cty, y = mean_hwy))\n","id":2,"options":{"editor-max-height":"","out-height":"","fig-height":"3.7","classes":"","fig-cap":"","output":"true","editor-font-scale":"0.85","dpi":72,"out-width":"70%","context":"interactive","comment":"","fig-width":"6","editor-quick-suggestions":"false","results":"markup","message":"true","warning":"true","read-only":"false","autorun":"false","label":"unnamed-chunk-2"}},{"code":"mpg |> \n  group_by(class) |> \n  summarize(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> \n  ggplot() \n","id":3,"options":{"editor-max-height":"","out-height":"","fig-height":"3.7","classes":"","fig-cap":"","output":"true","editor-font-scale":"0.85","dpi":72,"out-width":"70%","context":"interactive","comment":"","fig-width":"6","editor-quick-suggestions":"false","results":"markup","message":"true","warning":"true","read-only":"false","autorun":"false","label":"unnamed-chunk-3"}}];
 
 </script>
 <script type="module">
@@ -1555,7 +1555,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../04-tidy-data/01-reshape-data/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Tidy Data</span></a>
+ <span class="menu-text">Reshape data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -1899,7 +1899,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div>
 
 </div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">

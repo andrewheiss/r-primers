@@ -223,7 +223,7 @@ In practice, whether or not you need to use quotation marks will depend on how t
 
 ### Boys and girls in {babynames}
 
-Let's apply `pivot_wider()` to a real world inquiry. The plot below visualizes an aspect of the `babynames` data set from the **babynames** package. (See [Work with Data](/transform-data/01-tibbles/01-babynames.qmd) for an introduction to the `babynames` dataset.)
+Let's apply `pivot_wider()` to a real world inquiry. The plot below visualizes an aspect of the `babynames` data set from the **babynames** package. (See [Work with Data](/02-transform/01-tibbles/01-babynames.qmd) for an introduction to the `babynames` dataset.)
 
 ```{r echo=FALSE, out.width="80%", message=FALSE}
 babynames |>

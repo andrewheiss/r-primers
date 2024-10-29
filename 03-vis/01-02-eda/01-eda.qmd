@@ -37,7 +37,7 @@ source(here::here("R", "helpers.R"))
 
 EDA is an iterative cycle that helps you understand what your data says. When you do EDA, you:
 
-1. Generate questions about your data
+1. Generate questions/hypotheses about your data
 
 1. Search for answers by visualizing, transforming, and/or modeling your data
 
@@ -45,11 +45,11 @@ EDA is an iterative cycle that helps you understand what your data says. When yo
 
 EDA is an important part of any data analysis. You can use EDA to make discoveries about the world; or you can use EDA to ensure the quality of your data, asking questions about whether the data meets your standards or not.
 
-### The EDA mindset
+### The EDA mindset {.no-hide}
 
 EDA is not a formal process with a strict set of rules. More than anything, EDA is a state of mind. During the initial phases of EDA, you should feel free to investigate every idea that occurs to you. Some of these ideas will pan out, and some will be dead ends. As your exploration continues, you will home in on lines of inquiry that reveal insights worth writing up and communicating to others.
 
-### Questions
+### Questions {.no-hide}
 
 Your goal during EDA is to develop an understanding of your data. The easiest way to do this is to use questions as tools to guide your investigation. When you ask a question, the question focuses your attention on a specific part of your dataset and helps you decide which graphs, models, or transformations to make.
 
@@ -88,7 +88,7 @@ The rest of this tutorial will look at these two questions. To make the discussi
 
 * __Tabular data__ is a table of values, each associated with a variable and an observation. Tabular data is __tidy__ if each value is placed in its own cell, each variable in its own column, and each observation in its own row. 
     
-  So far, all of the data that you've seen has been tidy. In real-life, most data isn't tidy, so we'll come back to these ideas again in [Data Wrangling](/tidy-data/01-reshape-data/index.qmd).
+  So far, all of the data that you've seen has been tidy. In real-life, most data isn't tidy, so we'll come back to these ideas again in [Data Wrangling](/04-tidy-data/01-reshape-data/index.qmd).
 
 
 ### Review 1: Discovery or Confirmation?

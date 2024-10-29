@@ -42,7 +42,7 @@ source(here::here("R", "helpers.R"))
 
 ### Variables, values, and observations {.no-hide}
 
-In the [exploratory data analysis](/03-viz/01-02-eda/01-eda.qmd) primer, we proposed three definitions that are useful for data science:
+In the [exploratory data analysis](/03-viz/01-02-eda/01-eda.html) primer, we proposed three definitions that are useful for data science:
 
 * A __variable__ is a quantity, quality, or property that you can measure. 
 

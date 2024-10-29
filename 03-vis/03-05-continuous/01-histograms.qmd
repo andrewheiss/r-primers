@@ -50,7 +50,7 @@ Watch [this video](https://vimeo.com/221607341):
 
 ### How to make a histogram
 
-To make a histogram with {ggplot2}, add `geom_histogram()` to the [ggplot2 template](/basics/01-visualization-basics/01-code-template.qmd). For example, the code below plots a histogram of the `carat` variable in the `diamonds` dataset, which comes with {ggplot2}.
+To make a histogram with {ggplot2}, add `geom_histogram()` to the [ggplot2 template](/01-basics/01-visualization-basics/01-code-template.qmd). For example, the code below plots a histogram of the `carat` variable in the `diamonds` dataset, which comes with {ggplot2}.
 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor

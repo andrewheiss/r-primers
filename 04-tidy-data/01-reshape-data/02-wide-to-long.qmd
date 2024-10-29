@@ -205,7 +205,7 @@ Good job!
 
 ### Specifying columns
 
-So far, we have listed which columns to pivot by naming them one at a time and combining them using the `c()` function, but this isn't necessary. `pivot_longer()` also recognizes column names as well as all of the `select()` helpers that you learned about in [Isolating Data with {dplyr}](/transform-data/02-isolating/02-select.qmd). So, for example, these expressions would all do the same thing: 
+So far, we have listed which columns to pivot by naming them one at a time and combining them using the `c()` function, but this isn't necessary. `pivot_longer()` also recognizes column names as well as all of the `select()` helpers that you learned about in [Isolating Data with {dplyr}](/02-transform/02-isolating/02-select.qmd). So, for example, these expressions would all do the same thing: 
 
 ```{r echo=TRUE, eval=FALSE}
 table4a |> 

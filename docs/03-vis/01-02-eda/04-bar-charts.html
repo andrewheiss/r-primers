@@ -306,7 +306,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"code":"\n","options":{"out-width":"70%","out-height":"","editor-max-height":"","fig-cap":"","comment":"","fig-height":"3.7","warning":"true","editor-quick-suggestions":"false","fig-width":"6","results":"markup","autorun":"false","read-only":"false","message":"true","dpi":72,"output":"true","classes":"","editor-font-scale":"0.85","label":"unnamed-chunk-1","context":"interactive"}},{"id":2,"code":"ggplot(data = pressure) +\n  geom_bar(mapping = aes(x = temperature, y = pressure))\n","options":{"out-width":"70%","out-height":"","editor-max-height":"","fig-cap":"","comment":"","fig-height":"3.7","warning":"true","editor-quick-suggestions":"false","fig-width":"6","results":"markup","autorun":"false","read-only":"false","message":"true","dpi":72,"output":"true","classes":"","editor-font-scale":"0.85","label":"unnamed-chunk-2","context":"interactive"}},{"id":3,"code":"\n","options":{"out-width":"70%","out-height":"","editor-max-height":"","fig-cap":"","comment":"","fig-height":"3.7","warning":"true","editor-quick-suggestions":"false","fig-width":"6","results":"markup","autorun":"false","read-only":"false","message":"true","dpi":72,"output":"true","classes":"","editor-font-scale":"0.85","label":"unnamed-chunk-3","context":"interactive"}}];
+globalThis.qwebrCellDetails = [{"id":1,"code":"\n","options":{"out-height":"","message":"true","warning":"true","editor-quick-suggestions":"false","results":"markup","fig-width":"6","label":"unnamed-chunk-1","editor-max-height":"","output":"true","comment":"","fig-height":"3.7","classes":"","autorun":"false","dpi":72,"fig-cap":"","editor-font-scale":"0.85","out-width":"70%","read-only":"false","context":"interactive"}},{"id":2,"code":"ggplot(data = pressure) +\n  geom_bar(mapping = aes(x = temperature, y = pressure))\n","options":{"out-height":"","message":"true","warning":"true","editor-quick-suggestions":"false","results":"markup","fig-width":"6","label":"unnamed-chunk-2","editor-max-height":"","output":"true","comment":"","fig-height":"3.7","classes":"","autorun":"false","dpi":72,"fig-cap":"","editor-font-scale":"0.85","out-width":"70%","read-only":"false","context":"interactive"}},{"id":3,"code":"\n","options":{"out-height":"","message":"true","warning":"true","editor-quick-suggestions":"false","results":"markup","fig-width":"6","label":"unnamed-chunk-3","editor-max-height":"","output":"true","comment":"","fig-height":"3.7","classes":"","autorun":"false","dpi":72,"fig-cap":"","editor-font-scale":"0.85","out-width":"70%","read-only":"false","context":"interactive"}}];
 
 </script>
 <script type="module">
@@ -1555,7 +1555,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../04-tidy-data/01-reshape-data/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Tidy Data</span></a>
+ <span class="menu-text">Reshape data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -1838,7 +1838,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 
 <section id="how-to-make-a-bar-chart" class="level3 no-hide">
 <h3 class="no-hide anchored" data-anchor-id="how-to-make-a-bar-chart">How to make a bar chart</h3>
-<p>To make a bar chart with {ggplot2}, add <code>geom_bar()</code> to the <a href="../..\basics/01-visualization-basics/01-code-template.qmd">ggplot2 template</a>. For example, the code below plots a bar chart of the <code>cut</code> variable in the <code>diamonds</code> dataset, which comes with {ggplot2}.</p>
+<p>To make a bar chart with {ggplot2}, add <code>geom_bar()</code> to the <a href="../../01-basics/01-visualization-basics/01-code-template.html">ggplot2 template</a>. For example, the code below plots a bar chart of the <code>cut</code> variable in the <code>diamonds</code> dataset, which comes with {ggplot2}.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

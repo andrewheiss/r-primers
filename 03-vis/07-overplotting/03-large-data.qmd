@@ -66,7 +66,7 @@ Let's look at several other geoms that you can use to summarize relationships in
 
 ### Review: Boxplots with continuous variables
 
-Boxplots efficiently summarize data, which make them a useful tool for large data sets. In the [boxplots tutorial](/visualize-data/04-boxplots/03-counts.qmd), you learned how to use `cut_width()` and the group aesthetic to plot multiple boxplots for a continuous variable.
+Boxplots efficiently summarize data, which make them a useful tool for large data sets. In the [boxplots tutorial](/03-viz/05-counts.qmd), you learned how to use `cut_width()` and the group aesthetic to plot multiple boxplots for a continuous variable.
 
 Modify the code below to cut the carat axis into intervals with width 0.2. Then set the group aesthetic of `geom_boxplot()` to the result.
 

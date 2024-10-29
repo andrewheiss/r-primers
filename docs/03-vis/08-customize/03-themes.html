@@ -306,7 +306,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"out-height":"","message":"true","results":"markup","fig-width":"6","editor-max-height":"","comment":"","fig-height":"3.7","dpi":72,"editor-quick-suggestions":"false","warning":"true","classes":"","autorun":"true","fig-cap":"","out-width":"70%","output":"true","context":"setup","read-only":"false","label":"unnamed-chunk-1","editor-font-scale":"0.85"},"id":1,"code":"p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +\n  geom_smooth(mapping = aes(color = cut), se = FALSE) + \n  labs(title = \"Carat size vs. Price\",\n       subtitle = \"Fair cut diamonds tend to be large, but they fetch the lowest prices for most carat sizes.\",\n       caption = \"Data by Hadley Wickham\")"},{"options":{"out-height":"","message":"true","results":"markup","fig-width":"6","editor-max-height":"","comment":"","fig-height":"3.7","dpi":72,"editor-quick-suggestions":"false","warning":"true","classes":"","autorun":"false","fig-cap":"","out-width":"70%","output":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-2","editor-font-scale":"0.85"},"id":2,"code":"p1 + theme_bw()\n"},{"options":{"out-height":"","message":"true","results":"markup","fig-width":"6","editor-max-height":"","comment":"","fig-height":"3.7","dpi":72,"editor-quick-suggestions":"false","warning":"true","classes":"","autorun":"false","fig-cap":"","out-width":"70%","output":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-3","editor-font-scale":"0.85"},"id":3,"code":"p1\n"}];
+globalThis.qwebrCellDetails = [{"id":1,"options":{"message":"true","output":"true","classes":"","dpi":72,"read-only":"false","warning":"true","fig-cap":"","comment":"","label":"unnamed-chunk-1","autorun":"true","context":"setup","editor-max-height":"","fig-width":"6","editor-font-scale":"0.85","out-width":"70%","fig-height":"3.7","editor-quick-suggestions":"false","results":"markup","out-height":""},"code":"p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +\n  geom_smooth(mapping = aes(color = cut), se = FALSE) + \n  labs(title = \"Carat size vs. Price\",\n       subtitle = \"Fair cut diamonds tend to be large, but they fetch the lowest prices for most carat sizes.\",\n       caption = \"Data by Hadley Wickham\")"},{"id":2,"options":{"message":"true","output":"true","classes":"","dpi":72,"read-only":"false","warning":"true","fig-cap":"","comment":"","label":"unnamed-chunk-2","autorun":"false","context":"interactive","editor-max-height":"","fig-width":"6","editor-font-scale":"0.85","out-width":"70%","fig-height":"3.7","editor-quick-suggestions":"false","results":"markup","out-height":""},"code":"p1 + theme_bw()\n"},{"id":3,"options":{"message":"true","output":"true","classes":"","dpi":72,"read-only":"false","warning":"true","fig-cap":"","comment":"","label":"unnamed-chunk-3","autorun":"false","context":"interactive","editor-max-height":"","fig-width":"6","editor-font-scale":"0.85","out-width":"70%","fig-height":"3.7","editor-quick-suggestions":"false","results":"markup","out-height":""},"code":"p1\n"}];
 
 </script>
 <script type="module">
@@ -1526,7 +1526,7 @@ globalThis.qwebrExecuteCode = async function (
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../04-tidy-data/01-reshape-data/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Tidy Data</span></a>
+ <span class="menu-text">Reshape data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -1816,7 +1816,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div>
 
 </div>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">

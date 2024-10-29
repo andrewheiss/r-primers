@@ -243,7 +243,7 @@ Good job! In recent years, there are fewer girls (on average) given any particul
 
 Congratulations! You can use {dplyr}'s grammar of data manipulation to access any data associated with a table---even if that data is not currently displayed by the table.
 
-In other words, you now know how to look at data in R, as well as how to access specific values, calculate summary statistics, and compute new variables. When you combine this with the visualization skills that you learned in [Visualization Basics](/basics/01-visualization-basics/index.qmd), you have everything that you need to begin exploring data in R.
+In other words, you now know how to look at data in R, as well as how to access specific values, calculate summary statistics, and compute new variables. When you combine this with the visualization skills that you learned in [Visualization Basics](/01-basics/01-visualization-basics/index.qmd), you have everything that you need to begin exploring data in R.
 
 The next tutorial will teach you the last of three basic skills for working with R:
 

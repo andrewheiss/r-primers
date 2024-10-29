@@ -85,7 +85,7 @@ check_question(
 
 ### How to make a boxplot
 
-To make a boxplot with {ggplot2}, add `geom_boxplot()` to the [ggplot2 template](/basics/01-visualization-basics/01-code-template.qmd). For example, the code below uses boxplots to display the relationship between the `class` and `hwy` variables in the `mpg` dataset, which comes with {ggplot2}. 
+To make a boxplot with {ggplot2}, add `geom_boxplot()` to the [ggplot2 template](/01-basics/01-visualization-basics/01-code-template.qmd). For example, the code below uses boxplots to display the relationship between the `class` and `hwy` variables in the `mpg` dataset, which comes with {ggplot2}. 
 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
