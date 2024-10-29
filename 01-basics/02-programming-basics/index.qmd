@@ -1,0 +1,32 @@
+---
+title: "Programming basics"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+---
+
+```{r include=FALSE}
+source(here::here("R", "helpers.R"))
+```
+
+### Welcome to R! {.no-hide}
+
+R is easiest to use when you know how the R language works. This tutorial will teach you the implicit background knowledge that informs every piece of R code. You'll learn about:
+
+* **functions** and their **arguments**
+* **objects**
+* R's basic **data types** 
+* R's basic data structures including **vectors** and **lists**
+* R's **package system**
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("01-functions.html")
+```

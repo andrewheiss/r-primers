@@ -1,0 +1,351 @@
+---
+title: "Wide to long"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - tidyr
+    - dplyr
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(checkdown)
+set.seed(1234)
+
+cases <- tribble(
+  ~Country, ~"2011", ~"2012", ~"2013",
+      "FR",    7000,    6900,    7000,
+      "DE",    5800,    6000,    6200,
+      "US",   15000,   14000,   13000
+)
+
+cases2 <- tribble(
+  ~city, ~country,  ~continent,     ~"2011", ~"2012", ~"2013",
+  "Paris",    "FR", "Europe",           7000,    6900,    7000,
+  "Berlin",   "DE", "Europe",           5800,    6000,    6200,
+  "Chicago",  "US", "North America",   15000,   14000,   13000
+)
+
+source(here::here("R", "helpers.R"))
+```
+
+```{webr-r}
+#| context: setup
+cases <- tribble(
+  ~Country, ~"2011", ~"2012", ~"2013",
+      "FR",    7000,    6900,    7000,
+      "DE",    5800,    6000,    6200,
+      "US",   15000,   14000,   13000
+)
+
+cases2 <- tribble(
+  ~city, ~country,  ~continent,     ~"2011", ~"2012", ~"2013",
+  "Paris",    "FR", "Europe",           7000,    6900,    7000,
+  "Berlin",   "DE", "Europe",           5800,    6000,    6200,
+  "Chicago",  "US", "North America",   15000,   14000,   13000
+)
+```
+
+### Untidy data {.no-hide}
+
+> "Tidy data sets are all alike; but every messy data set is messy in its own way."
+> 
+> --- Hadley Wickham
+
+How you tidy an untidy data set will depend on the initial configuration of the data. For example, consider the `cases` data set below.
+
+```{r}
+cases
+```
+
+### Quiz 3: What are the variables?
+
+```{r}
+cases
+```
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**What are the variables in `cases`?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "Country, year, and some unknown quantity (n, count, number of cases, etc.)", 
+  options = c(
+    "Country, 2011, 2012, and 2013",
+    "Country, year, and some unknown quantity (n, count, number of cases, etc.)",
+    "FR, DE, and US"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  right = c("Correct!")
+)
+```
+:::
+
+### A tidy version of `cases`
+
+::: {.callout-tip}
+## Older names
+
+This video uses older function names:
+
+- Old `gather()` is now `pivot_longer()`
+- Old `spread()` is now `pivot_wider()`
+:::
+
+Watch [this video](https://vimeo.com/229581247) (you'll need to click on the link; the video's privacy settings make it so it can't be embedded here)
+
+### `pivot_longer()`
+
+You can use the `pivot_longer()` function in the {tidyr} package to convert wide data to long data. Notice that `pivot_longer()` returns a tidy copy of the dataset, but does not alter the original dataset. If you wish to use this copy later, you'll need to save it somewhere.
+
+```{r}
+cases |> 
+  pivot_longer(
+    cols = c(`2011`, `2012`, `2013`), 
+    names_to = "year", 
+    values_to = "n"
+    )
+```
+
+Let's take a closer look at the `pivot_longer()` syntax.
+
+### `pivot_longer()` syntax
+
+Here's the same call written without the pipe operator, which makes the syntax easier to see.
+
+```{r echo=TRUE, eval=FALSE}
+pivot_longer(
+  cases, 
+  cols = c(`2011`, `2012`, `2013`), 
+  names_to = "year", 
+  values_to = "n"
+)
+```
+
+To use `pivot_longer()`, pass it the name of a data set to reshape followed by which columns to pivot longer, the name of a new variable that will contain on the names of these columns as values, and the name of another new variables that will contain the values from these columns:
+
+* the `cols` argument contains the name of the columns to pivot into longer format.
+* the `names_to` argument is a string specifying the name of the new column to create from the data stored in the column names of the dataset to be reshaped.
+* the `values_to` argument is a string specifying the name of the new column to create from the data stored in cell values.
+
+Any unspecified columns will remain in the dataset, their contents repeated as often as necessary to duplicate each relationship in the original untidy data set.
+
+### Names and values
+
+In a tidy data set, you will find variable names in the column names of the data set. The values will appear in the cells of the columns. Here we organize the year information originally stored across multiple columns in the dataset into a single column called year. This arrangement reduces duplication.
+
+Sometimes you will also find pairs of names and values listed beside each other in two separate columns, as in `table2`. Here the `type` column lists the names that are associated with the `count` column. This layout is sometimes called "narrow" data.
+
+The pivot functions rely on this notion of names and values to describe what should go where. In `pivot_longer()` the `names_to` argument describes the new column that contains the values that previously appeared where a tidy data frame's variable names would go. The `values_to` argument describes the new column that contains the values that previously appeared in the value positions, e.g. in cells.
+
+### Exercise 1: Tidy `table4a`
+
+Now that you've seen `pivot_longer()` in action, try using it to tidy `table4a`:
+
+```{r}
+table4a
+```
+
+The result should contain three columns: `country`, `year`, and `cases`. Begin by modifying our code below.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+cases |> 
+  pivot_longer(
+    cols = c(`2011`, `2012`, `2013`), 
+    names_to = "year", values_to = "n"
+  )
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+table4a |> 
+  pivot_longer(
+    cols = c(`1999`, `2000`), 
+    names_to = "year", 
+    values_to = "cases"
+  )
+```
+
+:::
+
+###
+
+Good job!
+
+### Specifying columns
+
+So far, we have listed which columns to pivot by naming them one at a time and combining them using the `c()` function, but this isn't necessary. `pivot_longer()` also recognizes column names as well as all of the `select()` helpers that you learned about in [Isolating Data with {dplyr}](/transform-data/02-isolating/02-select.qmd). So, for example, these expressions would all do the same thing: 
+
+```{r echo=TRUE, eval=FALSE}
+table4a |> 
+  pivot_longer(
+    cols = c(`1999`, `2000`), 
+    names_to = "year", values_to = "cases"
+  )
+
+table4a |> 
+  pivot_longer(
+    cols = -country, 
+    names_to = "year", values_to = "cases"
+  )
+
+table4a |> 
+  pivot_longer(
+    cols = one_of(c("1999", "2000")), 
+    names_to = "year", values_to = "cases"
+  )
+```
+
+Notice that 1999 and 2000 are numbers. When you directly call column names that are numbers, you need to surround the names with backticks (otherwise `pivot_longer()` would think you mean the 1999th and 2000th columns). Use `?select_helpers` to open a help page that lists the select helpers.
+
+### Exercise 2: Tidy `table4b`
+
+Use `pivot_longer()` and the `-` helper to tidy `table4b` into a dataset with three columns: `country`, `year`, and `population`.
+
+```{r}
+table4b
+```
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+table4b |> 
+  pivot_longer(
+    cols = -country, 
+    names_to = "year", 
+    values_to = "population"
+  )
+```
+
+:::
+
+###
+
+Good job! Together the tidy versions of `table4a` and `table4b` repeat the information in `table1.` In [Join Data Sets]() you will learn how to combine them back into a single data set.
+
+### Converting output
+
+If you looked closely at your results in the previous exercises, you may have noticed something odd: the new `year` column is a character vector. You can tell because R displays `<chr>` beneath the column name. The `names_transform` and `values_transform` arguments take a list of functions that define how to transform the newly created column defining the desired type of each newly created column.
+
+For example, `names_transform = list(week = as.integer)` would convert a character variable called `week` to an integer.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+table4b |> 
+  pivot_longer(
+    cols = -country, 
+    names_to = "year", 
+    values_to = "population"
+  )
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+table4b |> 
+  pivot_longer(
+    cols = -country, 
+    names_to = "year", 
+    values_to = "population", 
+    names_transform = list(year = as.integer)
+  )
+```
+
+:::
+
+###
+
+Good Job! Now `<int>` appears under the year column, which means that R has stored the years as integers instead of character strings. Integers are one of R's two numeric data types, along with doubles.
+
+### The flexibility of `pivot_longer()`
+
+`cases`, `table4a`, and `table4b` are all rectangular tables: 
+
+* each row corresponds to the value of a variable, and
+* each column corresponds to the value of a variable
+
+Rectangular tables are a simple form of wide data. But you will also encounter more complicated examples of wide data. For example, it is common for researchers to place one subject per row. In this case, you might see several columns of identifying information followed by a set of columns that list repeated measurements of the same variable. `cases2` emulates such a data set. 
+```{r}
+cases2
+```
+
+To tidy this data, you would want to keep the first three columns as they are. Can you tidy this data with `pivot_longer()`? Yes, and you already know how. Think about the problem and then tidy `cases2` into a data set with five columns: `city`, `country`, `continent`, `year` (as an integer), and `cases`.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+cases2 |> 
+  pivot_longer(
+    cols = c(`2011`, `2012`, `2013`),
+    names_to = "year",
+    values_to = "cases",
+    names_transform = list(year = as.integer)
+  )
+```
+
+:::
+
+###
+
+Great job! Now let's look at how to tidy another common type of untidy data.
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("03-long-to-wide.qmd")
+```

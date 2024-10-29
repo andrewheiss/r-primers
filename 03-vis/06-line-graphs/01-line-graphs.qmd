@@ -1,0 +1,277 @@
+---
+title: "Line graphs"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - ggplot2
+    - dplyr
+    - forcats
+    - gapminder
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(gapminder)
+library(checkdown)
+set.seed(1234)
+
+asia <- 
+  gapminder |> 
+  filter(country %in% c("China", "Korea, Dem. Rep.", "Korea, Rep.", "Japan")) |> 
+  mutate(country = fct_recode(country, "North Korea" = "Korea, Dem. Rep.", "South Korea" = "Korea, Rep."))
+
+source(here::here("R", "helpers.R"))
+```
+
+```{webr-r}
+#| context: setup
+asia <- 
+  gapminder |> 
+  filter(country %in% c("China", "Korea, Dem. Rep.", "Korea, Rep.", "Japan")) |> 
+  mutate(country = fct_recode(country, "North Korea" = "Korea, Dem. Rep.", "South Korea" = "Korea, Rep."))
+```
+
+
+A **line graph** displays a functional relationship between two continuous variables. A **map**  displays spatial data. The two may seem different, but they are made in similar ways. This tutorial will examine them both.
+
+In this tutorial, you'll learn how to:
+
+* Make new types of line plots with `geom_step()`, `geom_area()`, `geom_path()`, and `geom_polygon()`
+* Avoid "whipsawing" with the group aesthetic
+* Find and plot map data with `geom_sf()`
+* Transform a coordinate system into a map projection with `coord_sf()`
+
+
+### Line graph vs. scatterplot {.no-hide}
+
+Like scatterplots, line graphs display the relationship between two continuous variables. However, unlike scatterplots, line graphs expect the variables to have a _functional_ relationship, where each value of $x$ is associated with only one value of $y$.
+
+For example, in the plot below, there is only one value of `unemploy` for each value of date. 
+
+```{r echo=FALSE, out.width="80%"}
+economics |> 
+  ggplot() +
+    geom_line(mapping = aes(x = date, y = unemploy))
+```
+
+### `geom_line()`
+
+Use the `geom_line()` function to make line graphs. Like `geom_point()`, it requires `x` and `y` aesthetics. 
+
+Use `geom_line()` in the chunk below to recreate the graph above. The graph uses the `economics` dataset that comes with {ggplot2} and maps the `date` and `unemploy` variables to the $x$ and $y$ axes. See [Visualization Basics](basics/01-visualization-basics/) if you are completely stuck.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(economics) +
+  geom_line(mapping = aes(x = date, y = unemploy))
+```
+
+:::
+
+###
+
+Good job! The graph shows the number of unemployed people in the US (in thousands) from 1967 to 2015. Now let's look at a richer dataset.
+
+
+### `asia`
+
+I've used [the {gapminder} package](https://jennybc.github.io/gapminder/) to assemble a new data set named `asia` to plot. Among other things, `asia` contains the GDP per capita of four countries from 1952 to 2007.
+
+```{r}
+asia
+```
+
+### Whipsawing
+
+However, when we plot the `asia` data we get an odd looking graph. The line seems to "whipsaw" up and down. Whipsawing is one of the most encountered challenges with line graphs.
+
+```{r out.width="80%"}
+ggplot(asia) +
+  geom_line(mapping = aes(x = year, y = gdpPercap))
+```
+
+### Review 1: Whipsawing
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**What does whipsawing indicate?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "We are trying to plot more than one line with a single line.", 
+  options = c(
+    "There is a lot of volatility in the data.",
+    "The graph should be plotted in polar coordinates.",
+    "The data contains rounding errors.",
+    "We are trying to plot more than one line with a single line."
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  right = c("Correct! As a result, our single line needs to connect multiple points for each x value before moving to the next x value.")
+)
+```
+:::
+
+
+### Multiple lines
+
+Redraw our graph as a scatterplot. Can you spot more than one "line" in the data?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(asia) +
+  geom_point(mapping = aes(x = year, y = gdpPercap))
+```
+
+:::
+
+###
+
+Good job! There are actually four lines in the plot. One for each country: China, Japan, North Korea, and South Korea.
+
+### `group`
+
+Many geoms, like lines, boxplots, and smooth lines, use a single object to display the entire dataset. You can use the _group_ aesthetic to instruct these geoms to draw separate objects for different groups of observations.
+
+For example, in the code below, you can map `group` to the grouping variable `country` to create a separate line for each country. Try it. Be sure to place the group mapping inside of `aes()`.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(asia) +
+  geom_line(mapping = aes(x = year, y = gdpPercap))
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(asia) +
+  geom_line(mapping = aes(x = year, y = gdpPercap, group = country))
+```
+
+:::
+
+###
+
+Good job! We now have a separate line for each country. Unfortunately, we cannot tell what the countries are: the `group` aesthetic does not supply a legend. Let's look at how to fix that.
+
+### Aesthetics
+
+You do not have to rely on the `group` aesthetic to perform a grouping. {ggplot2} will automatically group a monolithic geom whenever you map an aesthetic to a categorical variable. 
+
+So for example, the code below performs an implied grouping. And since we use the `color` aesthetic, the plot includes the color legend.
+
+```{r out.width="80%"}
+ggplot(asia) +
+  geom_line(mapping = aes(x = year, y = gdpPercap, color = country))
+```
+
+### `linetype` 
+
+Lines recognize a useful aesthetic that we haven't encountered before, `linetype`. Change `color` to `linetype` below and inspect the results. What happens if you map _both_ a `color` and a `linetype` to country?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(asia) +
+  geom_line(mapping = aes(x = year, y = gdpPercap, color = country))
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(asia) +
+  geom_line(mapping = aes(x = year, y = gdpPercap, linetype = country, color = country))
+```
+
+:::
+
+###
+
+Good job! If you map two aesthetics to the same variable, {ggplot2} will combine their legends. Supplementing `color` with `linetype` is a good idea if you might print your line chart in black and white.
+
+### Exercise 1: Life Expectancy
+
+Use what you've learned to plot the life expectancy of each country over time. Life expectancy is saved in the `asia` data set as `lifeExp`. Which country has the highest life expectancy? The lowest?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(asia) +
+  geom_line(mapping = aes(x = year, y = lifeExp, color = country, linetype = country))
+```
+
+:::
+
+###
+
+Good job! Japan has the highest life expectancy and North Korea the worst, but we can see that things haven't always been this way. Now let's look at some other ways to display the same information.
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("02-similar-geoms.html")
+```

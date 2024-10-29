@@ -1,0 +1,63 @@
+---
+title: "Overplotting"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+
+source(here::here("R", "helpers.R"))
+```
+
+
+Data visualization is a useful tool because it makes data accessible to your visual system, which can process large amounts of information quickly. However, two characteristics of data can short circuit this system. Data can not be easily visualized if
+
+1. Data points are all rounded to the same values.
+2. The data contains so many points that they occlude each other.
+
+These features both create _overplotting_, the condition where multiple geoms in the plot are plotted on top of each other, hiding each other. This tutorial will show you several strategies for dealing with overplotting, introducing new geoms along the way.
+
+
+### What is overplotting? {.no-hide}
+
+You've seen this plot several times in previous tutorials, but have you noticed that it only displays 126 points? This is unusual because the plot visualizes a data set that contains 234 points.
+
+```{r echo=FALSE, out.width="80%"}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+The missing points are hidden behind other points, a phenomenon known as _overplotting_. Overplotting is a problem because it provides an incomplete picture of the dataset. You cannot determine where the *mass* of the points fall, which makes it difficult to spot relationships in the data. 
+
+### Causes of overplotting
+
+Overplotting usually occurs for two different reasons:
+
+1. The data points have been rounded to a "grid" of common values, as in the plot above
+2. The dataset is so large that it cannot be plotted without points overlapping each other
+
+How you deal with overplotting will depend on the cause. 
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("02-rounding.html")
+```

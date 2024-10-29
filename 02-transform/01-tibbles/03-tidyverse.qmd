@@ -1,0 +1,149 @@
+---
+title: "tidyverse"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - tidyverse
+  autoload-packages: false
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+
+### The tidyverse {.no-hide}
+
+The {tibble} package is one of several packages that are known collectively as ["the tidyverse"](http://tidyverse.org). Tidyverse packages share a common philosophy and are designed to work well together. For example, in this tutorial you will use the {tibble} package, the {ggplot2} package, and the {dplyr} package, all of which belong to the tidyverse.
+
+### The tidyverse package
+
+When you use tidyverse packages, you can make your life easier by using the {tidyverse} package. The {tidyverse} package provides a shortcut for installing and loading the entire suite of packages in "the tidyverse", e.g. 
+
+```{r eval = FALSE}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+### Installing the tidyverse
+
+Think of the {tidyverse} package as a placeholder for the packages that are in the "tidyverse". By itself, {tidyverse} does not do much, but when you install the {tidyverse} package it instructs R to install every other package in the tidyverse at the same time. In other words, when you run `install.packages("tidyverse")`, R installs the following packages for you in one simple step:
+
+* ggplot2
+* dplyr
+* tidyr
+* readr
+* purrr
+* tibble
+* hms
+* stringr
+* lubridate
+* forcats
+* DBI
+* haven
+* jsonlite
+* readxl
+* rvest
+* xml2
+* modelr
+* broom
+
+### Loading the tidyverse
+
+When you load tidyverse with `library("tidyverse")`, it instructs R to load _the most commonly used_ tidyverse packages. These are:
+
+* ggplot2
+* dplyr
+* tidyr
+* readr
+* purrr
+* tibble
+* stringr
+* forcats
+* lubridate
+
+You can load the less commonly used tidyverse packages in the normal way, by running `library(<PACKAGE NAME>)` for each of them.
+
+Let's give this a try. We will use the ggplot2 and dplyr packages later in this tutorial. Let's use the tidyverse package to load them in the chunk below:
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+library(tidyverse)
+```
+
+:::
+
+### Quiz
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Which package is not loaded by `library("tidyverse")`**
+
+```{r tidyverse-check, echo=FALSE}
+check_question(
+  answer = "babynames", 
+  options = c(
+   "ggplot2",
+   "dplyr",
+   "tibble",
+   "babynames"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 1,
+  right = c("Correct!")
+)
+```
+:::
+
+### Recap
+
+Tibbles and the {tidyverse} package are two tools that make life with R easier. Ironically, you may not come to appreciate their value right away: these tutorials pre-load packages for you. However, you will want to use tibbles and the {tidyverse} package when you move out of the tutorials and begin doing your own work with R inside of RStudio.
+
+This tutorial also introduced the babynames dataset. In the next tutorial, you will use this data set to plot the popularity of _your_ name over time. Along the way, you will learn how to filter and subset data sets in R.
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons(NULL)
+```

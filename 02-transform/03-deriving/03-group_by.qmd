@@ -1,0 +1,265 @@
+---
+title: "`group_by()` and `summarize()`"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - babynames
+    - dplyr
+    - ggplot2
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(babynames)
+
+tops <- babynames::babynames |> 
+  group_by(name, sex) |> 
+  summarise(total = sum(n)) |> 
+  ungroup() |> 
+  top_n(10, total)
+  
+top_10 <- babynames::babynames |> 
+  semi_join(tops, by = c("name", "sex"))
+
+source(here::here("R", "helpers.R"))
+```
+
+```{webr-r}
+#| context: setup
+tops <- babynames::babynames |> 
+  group_by(name, sex) |> 
+  summarise(total = sum(n)) |> 
+  ungroup() |> 
+  top_n(10, total)
+  
+top_10 <- babynames::babynames |> 
+  semi_join(tops, by = c("name", "sex"))
+```
+
+`group_by()` takes a data frame and then the names of one or more columns in the data frame. It returns a copy of the data frame that has been "grouped" into sets of rows that share identical combinations of values in the specified columns. 
+
+### `group_by()` in action
+
+For example, the result below is grouped into rows that have the same combination of `year` and `sex` values: boys in 1880 are treated as one group, girls in 1880 as another group and so on.
+
+```{r}
+babynames |>
+  group_by(year, sex)
+```
+
+### Using `group_by()`
+
+By itself, `group_by()` doesn't do much. It assigns grouping criteria that is stored as metadata alongside the original data set. If your dataset is a tibble, as above, R will tell you that the data is grouped at the top of the tibble display. In all other aspects, the data looks the same.
+
+However, when you apply a {dplyr} function like `summarize()` to grouped data, dplyr will execute the function in a groupwise manner. Instead of computing a single summary for the entire data set, {dplyr} will compute individual summaries for each group and return them as a single data frame. The data frame will contain the summary columns as well as the columns in the grouping criteria, which makes the result decipherable
+
+Watch these animations to see what happens with one group:
+
+::: {.panel-tabset}
+## `group_by(cat1)`
+
+```{=html}
+<video controls width="100%" style="display: block; margin: auto;">
+  <source src="video/grp-summarize-01.mp4" type="video/mp4">
+</video>
+```
+
+## `group_by(cat2)`
+
+```{=html}
+<video controls width="100%" style="display: block; margin: auto;">
+  <source src="video/grp-summarize-02.mp4" type="video/mp4">
+</video>
+```
+:::
+
+Let's see what happens when we group with two columns:
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+babynames |>
+  group_by(year, sex) |> 
+  summarize(total = sum(n))
+
+
+```
+
+:::
+
+To understand exactly what `group_by()` is doing, remove the line `group_by(year, sex) |>` from the code above and rerun it. How do the results change?
+
+This animation should help with the intuition of grouping by two columns:
+
+```{=html}
+<video controls width="100%" style="display: block; margin: auto;">
+  <source src="video/grp-summarize-03.mp4" type="video/mp4">
+</video>
+```
+
+### Ungrouping 1
+
+If you apply `summarize()` to grouped data, `summarize()` will return data that is grouped in a similar, but not identical fashion. `summarize()` will remove the last variable in the grouping criteria, which creates a data frame that is grouped at a higher level. For example, this `summarize()` statement receives a data frame that is grouped by year and sex, but it returns a data frame that is grouped only by year.
+
+```{r grouping-2}
+babynames |>
+  group_by(year, sex) |> 
+  summarize(total = sum(n))
+```
+
+### Ungrouping 2
+
+If only one grouping variable is left in the grouping criteria, `summarize()` will return an ungrouped data set. This feature let's you progressively "unwrap" a grouped data set:
+
+If we add another `summarize()` to our pipe, 
+
+1.  our data set will first be grouped by year and sex.  
+1. _Then_ it will be summarized into a data set grouped by year (i.e. the result above)  
+1. _Then_ be summarized into a final data set that is not grouped.
+
+```{r}
+babynames |>
+  group_by(year, sex) |> 
+  summarize(total = sum(n)) |> 
+  summarize(total = sum(total))
+```
+
+### Ungrouping 3
+
+If you wish to manually remove the grouping criteria from a data set, you can do so with `ungroup()`.
+
+```{r grouping-3}
+babynames |>
+  group_by(year, sex) |> 
+  ungroup()
+```
+
+### Ungrouping 3
+
+And, you can override the current grouping information with a new call to `group_by()`.
+
+```{r grouping-4}
+babynames |>
+  group_by(year, sex) |> 
+  group_by(name)
+```
+
+That's it. Between `group_by()`, `summarize()`, and `ungroup()`, you have a toolkit for taking groupwise summaries of your data at various levels of grouping.
+
+### The most popular names by total children
+
+You now know enough to calculate the most popular names by total children (it may take some strategizing, but you can do it!). 
+
+In the code chunk below, use `group_by()`, `summarize()`, and `arrange()` to display the ten most popular names. Compute popularity as the total number of children of a single gender given a name. In other words, the total number of boys named "Kelly" should be computed separately from the total number of girls named "Kelly".
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+babynames |>
+  group_by(name, sex) |> 
+  summarize(total = sum(n)) |> 
+  arrange(desc(total))
+```
+
+:::
+
+
+### The history of the most popular names by total children
+
+Let's examine how the popularity of popular names has changed over time. To help us, I've made `top_10`, which is a version of `babynames` that is trimmed down to just the ten most popular names from above.
+
+```{r}
+top_10
+```
+
+### Exercise: Proportions for popular names
+
+Use the code block below to plot a line graph of `prop` vs `year` for each name in `top_10`. Be sure to color the lines by name to make the graph interpretable.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+top_10 |>
+  ggplot() +
+    geom_line(aes(x = year, y = prop, color = name))
+```
+
+:::
+
+### Exercise: Total children for popular names
+
+Now use `top_10` to plot `n` vs `year` for each of the names. How are the plots different? Why might that be? How does this affect our decision to use total children as a measure of popularity?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+top_10 |>
+  ggplot() +
+    geom_line(aes(x = year, y = n, color = name))
+```
+
+:::
+
+###
+
+Good job! This graph shows different trends than the one above, now let's consider why.
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("04-mutate.html")
+```

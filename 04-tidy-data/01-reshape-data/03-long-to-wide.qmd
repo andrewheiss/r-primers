@@ -1,0 +1,458 @@
+---
+title: "Long to wide"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - tidyr
+    - dplyr
+    - ggplot2
+    - babynames
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(babynames)
+library(checkdown)
+
+set.seed(1234)
+
+pollution <- tribble(
+       ~city,   ~size, ~amount,
+  "New York", "large",      23,
+  "New York", "small",      14,
+    "London", "large",      22,
+    "London", "small",      16,
+   "Beijing", "large",     121,
+   "Beijing", "small",     121
+)
+
+source(here::here("R", "helpers.R"))
+```
+
+```{webr-r}
+#| context: setup
+pollution <- tribble(
+       ~city,   ~size, ~amount,
+  "New York", "large",      23,
+  "New York", "small",      14,
+    "London", "large",      22,
+    "London", "small",      16,
+   "Beijing", "large",     121,
+   "Beijing", "small",     121
+)
+```
+
+### Narrow data {.no-hide}
+
+The `pollution` dataset below displays the amount of small and large particulate in the air of three cities. It illustrates another common type of untidy data. **Narrow data** has a column whose values could be variable names in a tidy data frame and another column whose values would be values under these new columns. Can you tell here which is which?
+
+```{r}
+pollution
+```
+
+### Quiz 4: Which is the column containing variable names?
+
+```{r}
+pollution
+```
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Which column in `pollution` contains variable names?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "size", 
+  options = c(
+    "city",
+    "size",
+    "amount"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  right = c("Correct! Two properties are being measured in this data: 1) the amount of small particulate in the air, and 2) the amount of large particulate.")
+)
+```
+:::
+
+
+### Quiz 5 - Which is the column containing values?
+
+```{r}
+pollution
+```
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Which column in `pollution` contains the values associated with the variable names from the previous exercise?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "amount", 
+  options = c(
+    "city",
+    "size",
+    "amount"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  right = c("Correct! What do these numbers represent? You can only tell when you match them with the variable names large (for large particulate) and small (for small particulate).")
+)
+```
+:::
+
+### A tidy version of `pollution`
+
+::: {.callout-tip}
+## Older names
+
+This video uses older function names:
+
+- Old `gather()` is now `pivot_longer()`
+- Old `spread()` is now `pivot_wider()`
+:::
+
+Watch [this video](https://vimeo.com/229581273):
+
+```{=html}
+<div class="ratio ratio-4x3">
+<iframe src="https://player.vimeo.com/video/229581273" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+```
+
+### `pivot_wider()`
+
+You can reshape this dataset into a wider dataset with the `pivot_wider()` function in the {tidyr} package. To use `pivot_wider()` pass it the name of a dataset to pivot (provided here by the pipe `|>`). Then tell it which column contains names and which contains values.
+
+```{r}
+pollution |>
+  pivot_wider(
+    names_from = size,
+    values_from = amount
+  )
+```
+
+`pivot_wider()` will give each unique value in the `names_from` column its own column. The unique values from this column will become the new column names. `pivot_wider()` will then redistribute the values in the `values_from` column across the new columns in a way that preserves every relationship in the original dataset. 
+
+### Exercise 3: Tidy table2
+
+Use `pivot_wider()` to tidy `table2` into a dataset with four columns: `country`, `year`, `cases`, and `population`. In short, convert `table2` to look like `table1`.
+
+```{r}
+table2
+table1
+```
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+table2 |> 
+  pivot_wider(
+    names_from = type, 
+    values_from = count
+  )
+```
+
+:::
+
+###
+
+Good job! You now possess two complementary tools for reshaping the layout of data. By iterating between `pivot_longer()` and `pivot_wider()` you can rearrange the values of any data set into many different configurations.
+
+### To quote or not to quote
+
+You may notice that both `pivot_longer()` and `pivot_wider()` arguments that start with _names_ and _values_. And, in each case the arguments are set to column names. But in `pivot_longer()` you must surround the names with quotes and in `pivot_wider()` case you do not. Why is this?
+
+```r
+table4b |> 
+  pivot_longer(
+    cols = -country, 
+    names_to = "year", values_to = "population"
+  )
+
+pollution |> 
+  pivot_wider(names_from = size, values_from = amount)
+```
+
+Don't let the difference trip you up. Instead think about what the quotes mean. 
+
+* In R, any sequence of characters surrounded by quotes is a character string, which is a piece of data in and of itself. 
+* Likewise, any sequence of characters not surrounded by quotes is the name of an object, which is a symbol that contains or points to a piece of data. Whenever R evaluates an object name, it searches for the object to find the data that it contains. If the object does not exist somewhere, R will return an error.
+
+###  
+
+In our `pivot_longer()` code above, "year" and "population" refer to two columns that do not yet exist. If R tried to look for objects named _year_ and _population_ it wouldn't find them (at least not in the `table4b` dataset). When we use `pivot_longer()` we are passing R two values (character strings) to use as the name of future columns that will appear in the result.
+
+In our `pivot_wider()` code, `names_from` and `values_from` point to two columns that _do_ exist in the `pollution` dataset: `size` and `amount.` When we use `pivot_wider()`, we are telling R to find these objects (columns) in the dataset and to use their contents to create the result. Since they exist, we do not need to surround them in quotation marks.
+
+In practice, whether or not you need to use quotation marks will depend on how the author of your function wrote the function. For example, `pivot_wider()` will still work if you do include quotation marks. However, you can use the intuition above as a guide for how to use functions in the tidyverse.
+
+### Boys and girls in {babynames}
+
+Let's apply `pivot_wider()` to a real world inquiry. The plot below visualizes an aspect of the `babynames` data set from the **babynames** package. (See [Work with Data](/transform-data/01-tibbles/01-babynames.qmd) for an introduction to the `babynames` dataset.)
+
+```{r echo=FALSE, out.width="80%", message=FALSE}
+babynames |>
+  group_by(year, sex) |> 
+  summarise(n = sum(n)) |> 
+  ggplot() +
+  geom_line(aes(year, n, color = sex))
+```
+
+The ratio of girls to boys in `babynames` is not constant across time. We can explore this phenomenon further by recreating the data in the plot.
+
+### Review: Make the data
+
+```{r echo=FALSE, out.width="80%", message=FALSE}
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
+  ggplot() +
+  geom_line(mapping = aes(year, total, color = sex))
+```
+
+To make the data displayed in the plot above, I first grouped babynames by `year` and `sex`. Then I computed a summary for each group: `total`, which is equal to the sum of `n` for each group.
+
+Use {dplyr} functions to recreate this process in the chunk below.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+babynames
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n))
+```
+
+:::
+
+###
+
+Good job! Now that we have the data, let's recreate the plot.
+
+
+### Review: Make the plot
+
+```{r echo=FALSE, out.width = "80%"}
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
+  ggplot() +
+  geom_line(aes(year, total, color = sex))
+```
+
+Use the data below to make the plot above, which was built with {ggplot2} functions.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n))
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
+  ggplot() +
+  geom_line(aes(year, total, color = sex))
+```
+
+:::
+
+###
+
+Good job! You can see that the data shows that fewer boys than girls were born for the years prior to 1936, and fewer girls than boys for the years after 1936.
+
+
+### A better way to look at the data
+
+A better way to explore this phenomena would be to directly plot a ratio of boys to girls over time. To make such a plot, you would need to compute the ratio of boys to girls for each year from 1880 to 2015:
+
+$$
+\text{ratio male} = \frac{\text{total male}}{\text{total female}}
+$$
+
+But how can we plot this data? Our current iteration of `babynames` places the total number of boys and girls for each year in the same column, which makes it hard to use both totals in the same calculation.
+
+```{r echo=TRUE, message=FALSE}
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n))
+```
+
+### A goal
+
+It would be easier to calculate the ratio of boys to girls if we could reshape our data to place the total number of boys born per year in one column and the total number of girls born per year in another:
+
+```{r echo=FALSE, message=FALSE}
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
+  pivot_wider(
+    names_from = sex,
+    values_from = total
+  )
+```
+
+Then we could compute the ratio by piping our data into a call like `mutate(ratio = M / F)`.
+
+### Exercise 4: Make the plot
+
+Add to the code below to:
+
+1. Reshape the layout to place the total number of boys per year in one column and the total number of girls born per year in a second column.
+1. Compute the ratio of boys to girls.
+1. Plot the ratio of boys to girls over time.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n))
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |>
+  pivot_wider(
+    names_from = sex,
+    values_from = total
+  ) |>
+  mutate(ratio = M / F) |>
+  ggplot(aes(year, ratio)) + 
+  geom_line()
+```
+
+:::
+
+###
+
+Good job!
+
+
+### Interesting
+
+Our results reveal a conspicuous oddity, that is easier to interpret if we turn the ratio into a percentage.
+
+```{r out.width="80%", message=FALSE}
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |>
+  pivot_wider(
+    names_from = sex,
+    values_from = total
+  ) |>
+  mutate(percent_male = M / (M + F) * 100, ratio = M / F) |>
+  ggplot(aes(year, percent_male)) + 
+  geom_line()
+```
+
+The percent of recorded male births is unusually low between 1880 and 1936. What is happening? One insight is that the data comes from the United States Social Security office, which was only created in 1936. As a result, we can expect the data prior to 1936 to display a survivorship bias.
+
+### Recap
+
+Your data will be easier to work with in R if you reshape it into a tidy layout at the start of your analysis. Data is tidy if:
+
+1. Each variable is in its own column
+1. Each observation is in its own row
+1. Each value is in its own cell
+
+You can use `pivot_longer()` and `pivot_wider()`, or some iterative sequence of the two, to reshape your data into any possible configuration that:
+
+1. Retains all of the values in your original data set, and
+1. Retains all of the relationships between values in your original data set.
+
+In particular, you can use these functions to recast your data into a tidy layout.
+
+### Food for thought
+
+It is not always clear whether or not a data set is tidy. For example, the version of `babynames` that was tidy when we wanted to plot total children by year, was no longer tidy when we wanted to compute the ratio of male to female children.
+
+The ambiguity comes from the definition of tidy data. Tidiness depends on the variables in your data set. But what is a variable depends on what you are trying to do.
+
+To identify the variables that you need to work with, describe what you want to do with an equation. Each variable in the equation should correspond to a variable in your data.
+
+So in our first case, we wanted to make a plot with the following mappings (e.g. equations)
+
+$$
+\begin{aligned}
+\text{x} &= \text{year} \\
+\text{y} &= \text{total} \\
+\text{color} &= \text{sex}
+\end{aligned}
+$$
+
+To do this, we needed a dataset that placed $\text{year}$, $\text{total}$, and $\text{sex}$ each in their own columns.
+
+In our second case we wanted to compute $\text{ratio male}$, where 
+
+$$
+\text{ratio male} = \frac{\text{total male}}{\text{total female}}
+$$
+
+This formula has three variables: $\text{ratio male}$, $\text{total male}$, and $\text{total female}$. To create the first variable, we required a dataset that isolated the second and third variables ($\text{total male}$ and $\text{total female}$) in their own columns. 
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons(NULL)
+```

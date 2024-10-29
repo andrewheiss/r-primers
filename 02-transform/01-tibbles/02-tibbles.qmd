@@ -1,0 +1,103 @@
+---
+title: "tibbles"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - tibble
+    - babynames
+  autoload-packages: false
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+
+source(here::here("R", "helpers.R"))
+```
+
+```{webr-r}
+#| context: setup
+library(babynames)
+```
+
+### What is a tibble? {.no-hide}
+
+A tibble is a special type of table. R displays tibbles in a refined way whenever you have the **tibble** package loaded: R will print only the first ten rows of a tibble as well as all of the columns that fit into your console window. R also adds useful summary information about the tibble, such as the data types of each column and the size of the data set. 
+
+Whenever you do not have the tibble packages loaded, R will display the tibble as if it were a data frame. In fact, tibbles _are_ data frames, an enhanced type of data frame.
+
+You can think of the difference between the data frame display and the tibble display like this:
+
+![](img/tibble_display.png){width=75%}
+
+### `as_tibble()`
+
+You can transform a data frame to a tibble with the `as_tibble()` function in the tibble package, e.g. `as_tibble(cars)`. However, `babynames` is already a tibble. To display it nicely, you just need to load the {tibble} package. 
+
+To see what I mean, use `library()` to load the tibble package in the chunk below and then call `babynames`.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+library(tibble)
+library(babynames)
+babynames
+```
+
+:::
+
+###
+
+Excellent! If you want to check whether or not an object is a tibble, you can use the `is_tibble()` function that comes in the tibble package. For example, this would return TRUE: `is_tibble(babynames)`.
+
+
+### `View()`
+
+What if you'd like to inspect the remaining portions of a tibble? To see the entire tibble, use the `View()` command. R will launch a window that shows a scrollable display of the entire data set. For example, the code below will launch a data viewer in RStudio.
+
+```{r eval=FALSE}
+View(babynames)
+```
+
+`View()` works in conjunction with the software that you run R from: `View()` opens the data editor provided by that software. Unfortunately, this tutorial doesn't come with a data editor, so you won't be able to use `View()` today (unless you open RStudio, for example, and run the code there).
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("03-tidyverse.html")
+```

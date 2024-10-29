@@ -1,0 +1,68 @@
+---
+title: "Continuous variables"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+source(here::here("R", "helpers.R"))
+```
+
+**Histograms** are perhaps the most popular way to visualize continuous distributions. Here we will look at them and their derivatives. You will learn how to:
+
+* Make and interpret histograms
+* Adjust the **binwidth** of a histogram to reveal new information
+* Use geoms that are similar to histograms, such as __dotplots__, __frequency polygons__, and __densities__
+
+
+**Boxplots** display the relationship between a continuous variable and a categorical variable. **Count** plots display the relationship between two categorical variables. In this tutorial, you will learn how to use both. You can learn how to:
+
+* Make and interpret boxplots
+* Rotate boxplots by flipping the coordinate system of your plot
+* Use *violin* plots and *dotplots*, two geoms that are similar to boxplots
+* Make and interpret count plots
+
+
+
+A **scatterplot** displays the relationship between two continuous variables. Scatterplots are one of the most common types of graphs---in fact, you've met scatterplots already in [Visualization Basics](/01-basics/01-visualization-basics/). You can learn how to:
+
+* Make new types of scatterplots with `geom_text()` and `geom_jitter()`
+* Add multiple **layers** of geoms to a plot
+* Enhance scatterplots with `geom_smooth()`, `geom_rug()`, and `geom_repel()`
+* Change the **coordinate system** of a plot
+
+
+A **line graph** displays a functional relationship between two continuous variables. A **map**  displays spatial data. The two may seem different, but they are made in similar ways. This tutorial will examine them both. You can learn how to:
+
+* Make new types of line plots with `geom_step()`, `geom_area()`, `geom_path()`, and `geom_polygon()`
+* Avoid "whipsawing" with the group aesthetic
+* Find and plot map data with `geom_sf()`
+* Transform a coordinate system into a map projection with `coord_sf()`
+
+
+The tutorials were adapted from [_R for Data Science_](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+
+The tutorial uses the {ggplot2} and {dplyr} packages, which have been pre-loaded for your convenience.
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("01-histograms.html")
+```

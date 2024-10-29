@@ -1,0 +1,128 @@
+---
+title: "`select()`"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - babynames
+    - dplyr
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+`select()` extracts columns of a data frame and returns the columns as a new data frame. To use `select()`, pass it the name of a data frame to extract columns from, and then the names of the columns to extract. The column names do not need to appear in quotation marks or be prefixed with a `$`; `select()` knows to find them in the data frame that you supply.
+
+### Exercise: `select()`
+
+Use the example below to get a feel for `select()`. Can you extract just the `name` column? How about the `name` and `year` columns? How about all of the columns except `prop`?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+select(babynames, name, sex)
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+select(babynames, name)
+select(babynames, name, year)
+select(babynames, year, sex, name, n)
+```
+
+:::
+
+
+### `select()` helpers
+
+You can also use a series of helpers with `select()`. For example, if you place a minus sign before a column name, `select()` will return every column but that column. Can you predict how the minus sign will work here?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+select(babynames, -c(n, prop))
+
+
+```
+
+:::
+
+The table below summarizes the other `select()` helpers that are available in {dplyr}. Study it, and then click "Continue" to test your understanding.
+
+| Helper function     | Use                                          | Example                                         |
+|-------------------|------------------------|------------------------------|
+| **`-`**             | Columns except                               | `select(babynames, -prop)`                      |
+| **`:`**             | Columns between (inclusive)                  | `select(babynames, year:n)`                     |
+| **`contains()`**    | Columns that contains a string               | `select(babynames, contains("n"))`              |
+| **`ends_with()`**   | Columns that ends with a string              | `select(babynames, ends_with("n"))`             |
+| **`matches()`**     | Columns that matches a regex                 | `select(babynames, matches("n"))`               |
+| **`num_range()`**   | Columns with a numerical suffix in the range | Not applicable with `babynames`                 |
+| **`one_of()`**      | Columns whose name appear in the given set   | `select(babynames, one_of(c("sex", "gender")))` |
+| **`starts_with()`** | Columns that starts with a string            | `select(babynames, starts_with("n"))`           |
+
+: {tbl-colwidths="[15, 35, 35]" .striped .hover .table-sm}
+
+
+### `select()` quiz
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Which of these is not a way to select the `name` and `n` columns together?**
+
+```{r predict, echo=FALSE}
+check_question(
+  answer = 'select(babynames, ends_with("n"))', 
+  options = c(
+    "select(babynames, -c(year, sex, prop))",
+    "select(babynames, name:n)",
+    'select(babynames, starts_with("n"))',
+    'select(babynames, ends_with("n"))'
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 1,
+  right = c("Correct!")
+)
+```
+:::
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("03-filter.html")
+```

@@ -1,0 +1,14 @@
+name: umcg-r-primers
+title: UMCG-r-primers
+username: oferengel-posit
+account: oferengel-posit
+server: posit.cloud
+hostUrl: https://api.posit.cloud/v1
+appId: 8645142
+bundleId: 9056093
+url: https://posit.cloud/content/8645142
+version: 1
+quarto_version: 1.4.555
+quarto_engines: knitr, markdown
+asMultiple: FALSE
+asStatic: FALSE

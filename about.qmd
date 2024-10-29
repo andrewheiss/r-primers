@@ -21,86 +21,7 @@ With [RStudio's rebranding to Posit in 2022](https://posit.co/blog/rstudio-is-be
 
 In December 2023, the Posit Primers were retired in favor of [Posit Recipes](https://posit.cloud/learn/recipes) and [Posit Cheatsheets](https://posit.co/resources/cheatsheets/). These newer resources have been updated to the latest versions of {tidyverse} packages, and they're no longer interactive (which is probably a lot easier for Posit's education team to maintain).
 
-## How I've used the Primers in the past
-
-I've been relying on the RStudio/Posit Primers for teaching [my own R-focused classes](https://www.andrewheiss.com/teaching/) since 2020. In the first few weeks of every semester, I had students complete a bunch of the tutorials to get the hang of {dplyr} and {ggplot2}.
-
-With the sunsetting of the Primers at the beginning of 2024, though, I had to figure out a new solution.
-
-Fortunately, the RStudio/Posit Education team [posted the source for the Primers at GitHub](https://github.com/rstudio-education/primers) under a [Creative Commons license](https://github.com/rstudio-education/primers/blob/master/LICENSE.md), so for Spring 2024, I maintained a Shiny server with the tutorials I needed for my classes.
-
-## The magic of webR
-
-Starting in 2023, [webR](https://docs.r-wasm.org/webr/latest/)—a version of R compiled to run with Javascript in a web browser—underwent rapid development, and a new Quarto extension ([{quarto-webr}](https://quarto-webr.thecoatlessprofessor.com/)) has since been developed to make it almost trivially easy to include Shiny-free interactive R chunks directly in the browser, like this:
-
-```{webr-r}
-hist(faithful$waiting)
-
-
-```
-
-That's ***so magical***!
-
-So for my Summer 2024 classes, I decided to take the plunge and convert the Shiny-based {learnr} tutorials that I've been using for so long into a webR-based website.
-
-## How it works 
-
-The tutorials aren't nearly as fully featured as {learnr}, but they get the job done.
-
-### {learnr} hints and solutions
-
-To simulate {learnr}'s hint and solution functionality, I use Quarto's [Tabset Panels](https://quarto.org/docs/interactive/layout.html#tabset-panel):
-
-````default
-::: {.panel-tabset}
-## {{{< fa code >}}}&ensp;Interactive editor
-
-```{webr-r}
-# Calculate 1 + 2
-```
-
-## {{{< fa lightbulb >}}}&ensp;Hint
-
-**Hint:** Think about addition
-
-## {{{< fa circle-check >}}}&ensp;Solution
-
-```r
-1 + 2
-```
-
-:::
-````
-
-::: {.panel-tabset}
-## {{< fa code >}}&ensp;Interactive editor
-
-```{webr-r}
-# Calculate 1 + 2
-
-
-
-```
-
-## {{< fa lightbulb >}}&ensp;Hint
-
-**Hint:** Think about addition
-
-## {{< fa circle-check >}}&ensp;Solution
-
-```r
-1 + 2
-```
-
-:::
-
-### {learnr} progressive reveal
-
-One great feature of {learnr} is its [progressive reveal](https://rstudio.github.io/learnr/articles/exercises.html#progressive-reveal), which unhides sections of a tutorial as you work through it. To simulate this with Quarto, I turned to Javascript. [My `progressive-reveal.js` script](https://github.com/andrewheiss/r-primers/blob/main/js/progressive-reveal.js) looks for all third-level headings on a page (similar to {learnr}) and makes the appear progressively using some buttons at the bottom of the page. It's clunky, but it works.
-
-### Quizzes
-
-{learnr} also supports [interactive questions](https://rstudio.github.io/learnr/articles/questions.html), or inline quiz questions. To simulate this, I use [{checkdown}](https://agricolamz.github.io/checkdown/). It's not as great as {learnr}, but again, it gets the job done.^[I also played with [{webexercises}](https://psyteachr.github.io/webexercises/articles/webexercises.html), which is a little more polished, but doesn't let you give feedback messages for in/correct answers. I'm tempted to fork {checkdown} or submit a bunch of PRs to make it nicer. Someday.]
+For more about how these Primers were used in the past for teaching, please read [Andrew's about page](https://r-primers.andrewheiss.com/about.html)
 
 ## Legal stuff
 
@@ -109,3 +30,4 @@ The original primers were developed by the RStudio/Posit Education Team and made
 The primers are derived from the book [*R for Data Science*](https://r4ds.had.co.nz/) from O'Reilly Media, Inc. Copyright © 2017 Garrett Grolemund, Hadley Wickham. Used with permission.
 
 [See here for the full license.](https://github.com/andrewheiss/r-primers/blob/main/LICENSE.md)
+

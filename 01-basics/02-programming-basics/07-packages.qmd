@@ -1,0 +1,135 @@
+---
+title: "Packages"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - tidyverse
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+library(tidyverse)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+### Packages {.no-hide}
+
+Watch [this video](https://vimeo.com/220490447):
+
+```{=html}
+<div class="ratio ratio-4x3">
+<iframe src="https://player.vimeo.com/video/220490447" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+```
+
+### A common error
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**What does this common error message suggest? `object _____ does not exist.`**
+
+```{r packages1, echo=FALSE}
+check_question(
+  answer = c("Either"), 
+  options = c(
+   "You misspelled your object name",
+   "You've forgot to load the package that ____ comes in",
+   "Either"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 1,
+  right = c("Correct!")
+)
+```
+
+:::
+
+
+### Load a package
+
+In the code chunk below, load the {tidyverse} package. Whenever you load a package R will also load all of the packages that the first package depends on. {tidyverse} takes advantage of this to create a shortcut for loading several common packages at once. Whenever you load {tidyverse}, {tidyverse} also loads {ggplot2}, {dplyr}, {tibble}, {tidyr}, {readr}, {purrr}, {forcats}, {stringr}, and {lubridate}.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+library(tidyverse)
+```
+
+:::
+
+###
+
+Good job! R will keep the packages loaded until you close your R session. When you re-open R, you'll need to reload your packages.
+
+
+### Quotes
+
+Did you know `library()` is a special function in R? You can pass `library()` a package name in quotes, like `library("tidyverse")`, or not in quotes, like `library(tidyverse)`---both will work! That's often not the case with R functions.
+
+In general, you should always use quotes unless you are writing the _name_ of something that is already loaded into R's memory, like a function, vector, or data frame.
+
+### Install packages
+
+But what if the package that you want to load is not installed on your computer? How would you install the {dplyr} package on your own computer?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+install.packages("dplyr")
+```
+
+:::
+
+###
+
+Good job! You only need to install a package once, unless you wish to update your local copying by reinstalling the package. Notice that `install.packages()` _always_ requires quotes around the package name.
+
+
+### Congratulations!
+
+Congratulations. You now have a formal sense for how the basics of R work. Although you may think of your self as a data scientist, this brief computer science background will help you as you analyze data. Whenever R does something unexpected, you can apply your knowledge of how R works to figure out what went wrong.
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons(NULL)
+```

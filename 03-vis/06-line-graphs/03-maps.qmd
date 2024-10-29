@@ -1,0 +1,358 @@
+---
+title: "Maps"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - ggplot2
+    - dplyr
+    - tibble
+    - sf
+    - spData
+    - maps
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(sf)
+
+tx <- map_data("state", region = "texas")
+us <- map_data("state")
+
+source(here::here("R", "helpers.R"))
+```
+
+```{webr-r}
+#| context: setup
+us <- map_data("state")
+
+USArrests2 <- USArrests |> 
+  rownames_to_column("NAME")
+
+us_states_merged <- us_states |> 
+  left_join(USArrests2, by = join_by(NAME))
+
+us_states_merged
+```
+
+
+### {maps}: the older way to make maps with R {.no-hide}
+
+The `tx` data set comes from the {maps} package, which is an R package that contains similarly formatted data sets for many regions of the globe. 
+
+A short list of the datasets saved in maps includes: `france`, `italy`, `nz`, `usa`, `world`, and `world2`, along with `county` and `state`. These last two map the US at the county and state levels. To learn more about maps, run `help(package = maps)`.
+
+### `map_data()`
+
+You do not need to access the {maps} package to use its data. {ggplot2} provides the function `map_data()` which fetches maps from the maps package and returns them in a format that {ggplot2} can plot. 
+
+To use `map_data()` give it the name of a dataset to retrieve. You can retrieve a subset of the data by providing an optional `region` argument. For example, I can use this code to retrieve a map of Florida from `state`, which is the dataset that contains all 50 US states.
+
+```{r eval=FALSE}
+fl <- map_data("state", region = "florida")
+
+ggplot(fl) +
+  geom_polygon(mapping = aes(x = long, y = lat))
+```
+
+Alter the code to retrieve and plot your home state (Try Idaho if you are outside of the US). Notice the capitalization.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+id <- map_data("state", region = "idaho")
+
+ggplot(id) +
+  geom_polygon(mapping = aes(x = long, y = lat))
+```
+
+:::
+
+###
+
+Good job! This is how I collected the `tx` dataset. Let's look at what would happen if you do not specify a region in `map_data()`.
+
+### state
+
+If you do not specify a region, `map_data()` will retrieve the entire data set, in this case `state`. 
+
+```{r eval=FALSE}
+us <- map_data("state")
+```
+
+In practice, you will often have to retrieve an entire dataset at least once to learn what region names to use with `map_data()`. The names will be stored in the `region` column of the dataset.
+
+### Hmmm
+
+The code below retrieves and plots the entire state data set, but something goes wrong. What?
+
+```{r}
+us <- map_data("state")
+
+ggplot(us) +
+  geom_polygon(mapping = aes(x = long, y = lat))
+```
+
+### Multiple polygons
+
+In this case, our data is not out of order, but it contains more than one polygon: it contains 50 polygons---one for each state. 
+
+By default, `geom_polygon()` tries to plot a single polygon, which causes it to connect multiple polygons in weird ways. 
+
+### groups
+
+Which aesthetic can you use to plot multiple polygons? In the code below, map the `group` aesthetic to the `group` variable in the `state` dataset. This variable contains all of the grouping information needed to make a coherent map. Then rerun the code.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(us) +
+  geom_polygon(mapping = aes(x = long, y = lat))
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(us) +
+  geom_polygon(mapping = aes(x = long, y = lat, group = group))
+```
+
+:::
+
+###
+
+Good job! You've mastered one method for drawing maps. This approach is older, though, and far less flexible than the more modern approach, which uses the {sf} package.
+
+### {sf}, or "simple features"
+
+The [{sf} package](https://r-spatial.github.io/sf/) ("sf" = ["simple features"](https://en.wikipedia.org/wiki/Simple_Features)) is the new *de facto* system for doing anything with geographic data with R. 
+
+Fully exploring {sf} here goes beyond the scope of these tutorials, but there are a ton of resources online about it:
+
+- [{sf} documentation](https://r-spatial.github.io/sf/)
+- [Chapter 6](https://ggplot2-book.org/maps.html#sec-sf) in the 3rd edition of *ggplot2: Elegant Graphics for Data Analysis*
+- [Lightning quick overview of {sf} and shapefiles](https://www.andrewheiss.com/blog/2023/04/26/middle-earth-mapping-sf-r-gis/#lightning-quick-overview-of-sf-and-shapefiles)
+- [*Spatial Data Science*](https://r-spatial.org/book/)
+- [*Geocomputation with R*](https://r.geocompx.org/)
+
+We'll just explore it a little bit here.
+
+### Why {sf}?
+
+The data that comes from `map_data()` contains columns for latitude and longitude, which represent geographic data. However, geographic data is a lot more complex than just x/y coordinates. 
+
+1. The latitude and longitude coordinates in datasets like `tx` and `us` that we've been using are just individual rows. You could accidentally filter out some rows and remove portions of the border. It would be nice if the coordinates for a state stayed together in one object
+1. As we've seen, we can use `geom_polygon()` or `geom_path()` to connect the dots between latitude and longitude coordinates, but those rows **must** be in the correct order to work. {ggplot2} has `geom_map()`, which is like `geom_polygon()` and `geom_path()`, but doesn't require that the order is correct, but it's tricky to incorporate other data into it. Suppose you want to fill each state by some other variable, like crime rates or median income—you need to somehow get that data into the map and display in the state polygons.
+1. Any time you take a section of a globe and flatten it into a two-dimensional map, you have to decide how to project the roundness into something flat, which changes the shapes of the geographic elements of a map. You probably noticed that the maps we've created so far with `geom_polygon()` and `geom_path()` look squished and incorrect. We're not using map projections to ensure they're flattened correctly or treated as actual map coordinates.
+
+### {sf} saves the day
+
+The {sf} package solves all these problems.
+
+1. Geographic coordinates in {sf}-enabled datasets aren't stored as separate latitude and longitude columns. Instead, they're kept in a special column named `geometry`. This makes it so you can have one row per unit of analysis (country, state, county, province, etc.) instead of thousands of rows.
+1. Since there's one row per unit of analysis, it's a lot easier to merge in other data.
+1. The `geom_sf()` geom uses the special `geometry` column to plot the coordinates.
+1. The `coord_sf()` layer ensures that the map uses specific projections (and lets you change to different projections) so that your maps don't get distorted.
+
+Let's see how this works.
+
+### {sf}-enabled data
+
+The `us` data we created with `map_data()` won't work with {sf}, since it's just a bunch of x/y coordinates. But we can load the `us_states` dataset from [the {spData} package](https://jakubnowosad.com/spData/):
+
+```{r message=FALSE}
+library(spData)
+us_states
+```
+
+Notice how it looks different from the `tx` and `us` data. There's one row for each state, and the geographic data for each state is stored in the `geometry` column
+
+### `geom_sf()`
+
+That `geometry` column is special. When we use it with `geom_sf()`, {ggplot2} will automatically convert it into polygons. If `geometry` contains points, like city coordinates, `geom_sf()` will plot them as points; if `geometry` contains lines, like roads, `geom_sf()` will plot them as lines.
+
+Try running this to see what happens:
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot() +
+  geom_sf(data = us_states)
+
+
+```
+
+:::
+
+### 
+
+That's really neat! We didn't need to worry about the order of the rows in the dataset, and the map isn't distorted.
+
+### Manipulating {sf}-enabled data
+
+Because {sf}-enabled datasets are tibbles, all our {dplyr} verbs work on them. For example, we can use `filter()` to select and plot just Texas:
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+us_states |> 
+  filter(NAME == "Texas") |> 
+  ggplot() +
+    geom_sf()
+
+
+```
+
+:::
+
+### Plotting data on maps
+
+R comes with a data set named `USArrests` that we can use to make a _choropleth map_. A choropleth map uses the color of each region in the plot to display some value associated with the region.
+
+In our case we will use the `UrbanPop` variable of `USAarrests` which records how urbanized each state was in 1973. `UrbanPop` is the percent of the population who lived within a city.
+
+```{r eval=FALSE}
+USArrests
+```
+
+```{r echo=FALSE}
+as_tibble(USArrests)
+```
+
+### Data wrangling
+
+You can use `geom_sf()` to create choropleth maps. To use `geom_sf()`, we need to merge or join `USArrests` with a dataset that contains geographic information for each state. 
+
+We need to combine `USArrests` with `us_states` to make this work. Joining datasets goes beyond the scope of this tutorial—I'll just show how it's done here. We'll use `left_join()` to add all the columns from `USArrests` to `us_states` wherever the two datasets share a state name. 
+
+This means the two datasets need to share a state name, and right now, this isn't the case. `us_states` has a `NAME` column, and `USArrests` hides its state names outside of the dataset in the row names (instead of in a column). In contrast, `us` uses a column of lower case state names.
+
+This converts the rownames in `USArrests` to a column named `NAME` and then combines it with `us_states`:
+
+```{r}
+USArrests2 <- USArrests |> 
+  rownames_to_column("NAME")
+
+us_states_merged <- us_states |> 
+  left_join(USArrests2, by = join_by(NAME))
+
+us_states_merged
+```
+
+We've now added four new columns to `us_states`, including `UrbanPop`. 
+
+### `geom_sf()` and aesthetics
+
+Now that we have `UrbanPop` in our data, we can use it as an aesthetic. Try adding `aes(fill = UrbanPop)` to `geom_sf()` here:
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(us_states_merged) +
+  geom_sf()
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(us_states_merged) +
+  geom_sf(aes(fill = UrbanPop))
+```
+
+:::
+
+###
+
+Congratulations! You've used geom_map() to make your first choropleth plot! To test your understanding, alter the code to display the `Murder`, `Assault`, or `Rape` variables.
+
+### Projections
+
+Taking a three-dimensional globe and flattening it to a two-dimensional surface means that map shapes will always be different, depending on which way you flatten them. You can control how things are flattened using different map projections. There are standard indexes of more than 4,000 of these projections at [epsg.io](https://epsg.io/).
+
+Here are some common ones:
+
+- [EPSG:3395](http://epsg.io/3395): Mercator projection for the world
+- [ESRI:54008](http://epsg.io/54008): Sinusoidal projection for the world
+- [ESRI:54009](http://epsg.io/54009): Mollweide projection for the world
+- [ESRI:54030](http://epsg.io/54030): Robinson projection for the world
+- [EPSG:4326](http://epsg.io/4326): WGS 84: DOD GPS coordinates (standard −180 to 180 system)
+- [EPSG:4269](http://epsg.io/4269): NAD 83: Relatively common projection for North America
+- [ESRI:102003](https://epsg.io/102003): Albers projection specifically for the contiguous United States
+
+### Changing projections
+
+By default, `geom_sf()` will display the map using whatever projection system is embedded in the `geometry` column. In the case of `us_states` and `us_states_merged`, this is https://en.wikipedia.org/wiki/North_American_Datum or [EPSG:4269](http://epsg.io/4269). You can tell by looking at the `Geodetic CRS` line near the top of the output from `us_states_merged`:
+
+```{r}
+us_states_merged
+```
+
+To use a different projection, set the `crs` argument of `coord_sf()` to a projection ID from [epsg.io](https://epsg.io/).
+
+For example, here's our US map with an [Albers projection](https://epsg.io/102003), which is [specifically designed for North America](https://en.wikipedia.org/wiki/Albers_projection):
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(us_states_merged) +
+  geom_sf(aes(fill = UrbanPop)) +
+  coord_sf(crs = st_crs("ESRI:102003"))
+
+
+```
+
+:::
+
+### Recap
+
+You can now make all of the plots recommended in the [Exploratory Data Analysis tutorial](/visualize-data/01-eda/). The next tutorial in this primer will teach you several strategies for dealing with overplotting, a problem that can occur when you have large data or low resolution data.
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons(NULL)
+```

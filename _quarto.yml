@@ -1,5 +1,6 @@
 project:
-  type: website
+  type: website  # original https://r-primers.andrewheiss.com/
+  output-dir: docs
   preview:
     port: 5555
 
@@ -7,10 +8,10 @@ execute:
   freeze: auto  # Re-render only when source changes
 
 website:
-  title: "R Primers"
+  title: "UMCG R Primers"
   bread-crumbs: false
   
-  repo-url: "https://github.com/andrewheiss/r-primers"
+  repo-url: "https://github.com/OferEngel/UMCG-r-primers"
   repo-actions: [edit, issue]
 
   navbar:
@@ -27,30 +28,103 @@ website:
     collapse-level: 2
     contents: 
       - section: "Basics"
-        contents:
-        - auto: "basics/01-visualization-basics"
-        - auto: "basics/02-programming-basics"
-
-      - section: "Transform data"
-        contents:
-        - auto: "transform-data/01-tibbles"
-        - auto: "transform-data/02-isolating"
-        - auto: "transform-data/03-deriving"
-
-      - section: "Visualize data"
-        contents:
-        - auto: "visualize-data/01-eda"
-        - auto: "visualize-data/02-bar-charts"
-        - auto: "visualize-data/03-histograms"
-        - auto: "visualize-data/04-boxplots"
-        - auto: "visualize-data/05-scatterplots"
-        - auto: "visualize-data/06-line-graphs"
-        - auto: "visualize-data/07-overplotting"
-        - auto: "visualize-data/08-customize"
-
-      - section: "Tidy data"
-        contents:
-        - auto: "tidy-data/01-reshape-data"
+        contents: 
+          - section: "Basic visualisation"
+            href: 01-basics/01-visualization-basics/index.qmd
+            contents: 
+              - href: 01-basics/01-visualization-basics/01-code-template.qmd
+              - href: 01-basics/01-visualization-basics/02-aesthetic-mappings.qmd
+              - href: 01-basics/01-visualization-basics/03-geometric-objects.qmd
+              - href: 01-basics/01-visualization-basics/04-ggplot-package.qmd
+          - section: "Basic programming"
+            href: 01-basics/02-programming-basics/index.qmd
+            contents: 
+              - href: 01-basics/02-programming-basics/01-functions.qmd
+              - href: 01-basics/02-programming-basics/02-arguments.qmd
+              - href: 01-basics/02-programming-basics/03-objects.qmd
+              - href: 01-basics/02-programming-basics/04-vectors.qmd
+              - href: 01-basics/02-programming-basics/05-types.qmd
+              - href: 01-basics/02-programming-basics/06-lists.qmd
+              - href: 01-basics/02-programming-basics/07-packages.qmd
+      - section: "Transform"
+        contents: 
+          - section: "tibbles"
+            href: 02-transform/01-tibbles/index.qmd
+            contents: 
+              - href: 02-transform/01-tibbles/01-babynames.qmd
+              - href: 02-transform/01-tibbles/02-tibbles.qmd
+              - href: 02-transform/01-tibbles/03-tidyverse.qmd
+          - section: "isoloating"
+            href: 02-transform/02-isolating/index.qmd
+            contents:   
+              - href: 02-transform/02-isolating/01-your-name.qmd
+              - href: 02-transform/02-isolating/02-select.qmd
+              - href: 02-transform/02-isolating/03-filter.qmd
+              - href: 02-transform/02-isolating/04-arrange.qmd
+              - href: 02-transform/02-isolating/05-pipe.qmd
+          - section: "deriving"
+            href: 02-transform/03-deriving/index.qmd
+            contents:   
+              - href: 02-transform/03-deriving/01-most-popular-names.qmd
+              - href: 02-transform/03-deriving/02-summaize.qmd
+              - href: 02-transform/03-deriving/03-grouop_by.qmd
+              - href: 02-transform/03-deriving/04-mutate.qmd
+              - href: 02-transform/03-deriving/05-challenges.qmd
+      - section: "Visualize Data"
+        contents: 
+          - section: "Exploratory Data Analysis"
+            href: 03-vis/01-02-eda/index.qmd
+            contents: 
+              - href: 03-vis/01-02-eda/01-eda.qmd
+              - href: 03-vis/01-02-eda/02-variation.qmd
+              - href: 03-vis/01-02-eda/03-covariation.qmd
+              - href: 03-vis/01-02-eda/04-bar-charts.qmd
+              - href: 03-vis/01-02-eda/05-aesthetics.qmd
+              - href: 03-vis/01-02-eda/06-position-adjustments.qmd
+              - href: 03-vis/01-02-eda/07-facets.qmd
+          - section: "Continuous variables"
+            href: 03-vis/03-05-continuous/index.qmd
+            contents: 
+              - href: 03-vis/03-05-continuous/01-histograms.qmd
+              - href: 03-vis/03-05-continuous/02-beyond-histograms.qmd
+              - href: 03-vis/03-05-continuous/03-boxplots.qmd
+              - href: 03-vis/03-05-continuous/04-beyond-boxplots.qmd
+              - href: 03-vis/03-05-continuous/05-counts.qmd
+              - href: 03-vis/03-05-continuous/06-scatterplots.qmd
+              - href: 03-vis/03-05-continuous/07-layers.qmd
+              - href: 03-vis/03-05-continuous/08-coordinate-systems.qmd
+      - section: "Reshape data"
+        href: 04-tidy-data/01-reshape-data/index.qmd
+        contents: 
+          - href: 04-tidy-data/01-reshape-data/01-tidy-data.qmd
+          - href: 04-tidy-data/01-reshape-data/02-wide-to-long.qmd
+          - href: 04-tidy-data/01-reshape-data/03-long-to-wide.qmd      
+            
+      # - section: "Basics"
+      #   contents:
+      #   - auto: "basics/01-visualization-basics"
+      #   - auto: "basics/02-programming-basics"
+      # 
+      # - section: "Transform data"
+      #   contents:
+      #   - auto: "transform-data/01-tibbles"
+      #   - auto: "transform-data/02-isolating"
+      #   - auto: "transform-data/03-deriving"
+      # 
+      # - section: "Visualize data"
+      #   contents:
+      #   - auto: "visualize-data/01-eda"
+      #   - auto: "visualize-data/02-bar-charts"
+      #   - auto: "visualize-data/03-histograms"
+      #   - auto: "visualize-data/04-boxplots"
+      #   - auto: "visualize-data/05-scatterplots"
+      #   - auto: "visualize-data/06-line-graphs"
+      #   - auto: "visualize-data/07-overplotting"
+      #   - auto: "visualize-data/08-customize"
+      # 
+      # - section: "Tidy data"
+      #   contents:
+      #   - auto: "tidy-data/01-reshape-data"
 
 format:
   html:

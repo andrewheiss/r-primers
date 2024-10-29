@@ -1,0 +1,216 @@
+---
+title: "Position adjustments"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - ggplot2
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+### Positions {.no-hide}
+
+If you map `fill` to a new variable, `geom_bar()` will display a _stacked_ bar chart:
+
+```{r out.width="80%"}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+```
+
+This plot displays 40 different combinations of `cut` and `clarity`, each displayed by its own rectangle. `geom_bar()` lays out the rectangles by stacking rectangles that have the same `cut` value on top of one another. You can change this behavior with a _position adjustment_.
+
+### `position = "dodge"`
+
+To place rectangles that have the same `cut` value beside each other, set `position = "dodge"`.
+
+```{r out.width="80%"}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+```
+
+This plot shows the same rectangles as the previous chart; however, it lays out rectangles that have the same `cut` value _beside_ each other.
+
+### `position = "stack"`
+
+To create the familiar stacked bar chart, set `position = "stack"` (which is the default for `geom_bar()`).
+
+```{r out.width="80%"}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "stack")
+```
+
+### `position="fill"`
+
+To expand each bar to take up the entire $y$ axis, set `position = "fill"`. {ggplot2} will stack the rectangles and then scale them within each bar.
+
+```{r out.width="80%"}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
+```
+
+This makes it easy to _compare proportions_. For example, you can scan across the bars to see how the proportion of `IF` diamonds changes from cut to cut. 
+
+### What is a position adjustment?
+
+Every geom function in ggplot2 takes a `position` argument that is preset to a reasonable default. You can use `position` to determine how a geom should adjust objects that would otherwise overlap with each other. 
+
+For example, in our plot, each value of `cut` is associated with eight rectangles: one each for `I1`, `SI2`, `SI1`, `VS2`, `VS1`, `VVS2`, `VVS1`, and `IF`. Each of these eight rectangles deserves to go in the same place: directly above the value of `cut` that it is associated with, with the bottom of the rectangle placed at count = 0. But if we plotted the plot like that, the rectangles would overlap each other.
+
+Here's what that would look like if you could peek around the side of the graph.
+
+![](img/positions.png){width=80%}
+
+
+### `position = "identity"`
+
+…and here's what that would look like if you could see the graph from the front. You can make this plot by setting `position = "identity"`. 
+
+```{r out.width="80%"}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "identity")
+```
+
+Position adjustments tell {ggplot2} how to re-distribute objects when they overlap. `position = "identity"` is the "adjustment" that lets objects overlap each other. It is a bad choice for bar graphs because the result looks like a stacked bar chart, even though it is not. 
+
+### Exercise 6: Positions
+
+Use the code chunk to recreate the plot you see below. Remember: `color` is the name of a variable in `diamonds` (not to be confused with an aesthetic).
+
+```{r echo=FALSE, out.width="80%"}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = color, fill = clarity), position = "fill", width = 1)
+```
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = color, fill = clarity), position = "fill", width = 1)
+```
+
+:::
+
+### Exercise 7: Positions
+
+Use the code chunk to recreate the plot you see below. Remember: `color` is the name of a variable in `diamonds` (not to be confused with an aesthetic).
+
+```{r echo=FALSE}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = color, fill = cut), position = "dodge")
+```
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = color, fill = cut), position = "dodge")
+```
+
+:::
+
+
+### Exercise 8: `position = "identity"`
+
+```{r echo=FALSE, out.width="80%"}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = color), position = "identity")
+```
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Suppose the graph above uses `position = "stack"`. About how many diamonds have an ideal cut and a G color?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "1800", 
+  options = c(
+    "5000",
+    "3000",
+    "1800",
+    "The graph doesn't contain enough information to make an estimate."
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 1,
+  right = c("Correct! In a stacked bar chart, you can calculate the number of observations in each bar by subtracting the y value at the bottom of the bar from the y value at the top.")
+)
+```
+:::
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Suppose the graph above uses `position = "identity"`. About how many diamonds have an ideal cut and a G color?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "5000", 
+  options = c(
+    "5000",
+    "3000",
+    "1800",
+    "The graph doesn't contain enough information to make an estimate."
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 2,
+  right = c("Correct! Here the green bar extends all the way from 5000 to 0; most of the bar is behind the blue, purple, and magenta bars. In practice, you would never construct a bar chart like this.")
+)
+```
+:::
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("07-facets.html")
+```

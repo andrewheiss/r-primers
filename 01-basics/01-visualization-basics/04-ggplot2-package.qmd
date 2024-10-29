@@ -1,0 +1,57 @@
+---
+title: "The ggplot2 package"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+
+source(here::here("R", "helpers.R"))
+```
+
+Throughout this tutorial, I've referred to ggplot2 as a package. What does that mean?
+
+The R language is subdivided into __packages__, small collections of data sets and functions that all focus on a single task. The functions that we used in this tutorial come from one of those packages, the ggplot2 package, which focuses on visualizing data.
+
+### What should you know about packages?
+
+When you first install R, you get a small collection of core packages known as __base R__. The remaining packages---there are over 10,000 of them---are optional. You don't need to install them unless you want to use them.
+
+ggplot2 is one of these optional packages, so are the other packages that we will look at in these tutorials. Some of the most popular and most modern parts of R come in the optional packages.
+
+You don't need to worry about installing packages in these tutorials. Each tutorial comes with all of the packages that you need pre-installed; this is how we make the tutorials easy to use.
+
+However, one day, you may want to use R outside of these tutorials. When that day comes, you'll want to remember which packages to download to acquire the functions you use here. Throughout the tutorials, I will try to make it as clear as possible where each function comes from!
+
+
+### Where to from here
+
+Congratulations! You can use the ggplot2 code template to plot any dataset in many different ways. As you begin exploring data, you should incorporate these tools into your workflow.
+
+There is much more to ggplot2 and Data Visualization than we have covered here. If you would like to learn more about visualizing data with ggplot2, check out RStudio's primer on [Data Visualization]().
+
+Your new data visualization skills will make it easier to learn other parts of R, because you can now visualize the results of any change that you make to data. you'll put these skills to immediate use in the next tutorial, which will show you how to extract values from datasets, as well as how to compute new variables and summary statistics from your data. See you there.
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons(NULL)
+```

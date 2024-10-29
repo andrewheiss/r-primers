@@ -1,0 +1,370 @@
+---
+title: "Boxplots"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - ggplot2
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+
+**Boxplots** display the relationship between a continuous variable and a categorical variable. **Count** plots display the relationship between two categorical variables. In this tutorial, you will learn how to use both. You will learn how to:
+
+* Make and interpret boxplots
+* Rotate boxplots by flipping the coordinate system of your plot
+* Use *violin* plots and *dotplots*, two geoms that are similar to boxplots
+* Make and interpret count plots
+
+
+### Introduction {.no-hide}
+
+Watch [this video](https://vimeo.com/222358034):
+
+```{=html}
+<div class="ratio ratio-4x3">
+<iframe src="https://player.vimeo.com/video/222358034" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+```
+
+### Exercise 1 - Boxplots
+
+![](img/box-png.png){width=100%}
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Which of the sub-plots accurately describes the data above with a boxplot**
+
+```{r echo=FALSE}
+check_question(
+  answer = "C", 
+  options = c(
+    "A",
+    "B",
+    "C"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 1,
+  right = c("Correct!"),
+  wrong = "Good try, but this is tricky. With A, the middle of the box is near the middle of the range of the data, but it is not the median. The median depends on how many observations are on each side of the value. With B, the box extends the entire range of the data. This could be a useful plot, ggplot2 calls it a crossbar, but it is not a boxplot"
+)
+```
+:::
+
+
+### How to make a boxplot
+
+To make a boxplot with {ggplot2}, add `geom_boxplot()` to the [ggplot2 template](/basics/01-visualization-basics/01-code-template.qmd). For example, the code below uses boxplots to display the relationship between the `class` and `hwy` variables in the `mpg` dataset, which comes with {ggplot2}. 
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = class, y = hwy))
+
+
+```
+
+:::
+
+
+
+### Categorical and continuous
+
+`geom_boxplot()` expects one x- or y-axes to the continuous and one to be categorical. For example, here `class` is categorical. `geom_boxplot()` will automatically plot a separate boxplot for each value of $x$. This makes it easy to compare the distributions of points with different values of $x$.
+
+```{r out.width="80%", echo=FALSE, message=FALSE}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = class, y = hwy))
+```
+
+### Exercise 2: Interpretation
+
+```{r out.width="80%", echo=FALSE, message=FALSE}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = class, y = hwy))
+```
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Which class of car has the lowest median highway fuel efficiency (`hwy` value)?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "pickup", 
+  options = c(
+    "2seater",
+    "compact",
+    "midsize",
+    "minivan",
+    "pickup",
+    "subcompact",
+    "suv"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 2,
+  right = c("Correct!")
+)
+```
+:::
+
+
+### Exercise 3: Make a boxplot
+
+Recreate the boxplot below with the diamonds data set.
+
+```{r out.width="80%", echo=FALSE, message=FALSE}
+ggplot(data = diamonds) +
+  geom_boxplot(mapping = aes(x = cut, y = price))
+```
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = diamonds) +
+  geom_boxplot(mapping = aes(x = cut, y = price))
+```
+
+:::
+
+###
+
+Do you notice how many outliers appear in the plot? The boxplot algorithm can identify many outliers if your data is big, perhaps too many. Let's look at ways to suppress the appearance of outliers in your plot.
+
+### Outliers
+
+You can change how outliers look in your boxplot with the parameters `outlier.color`, `outlier.fill`, `outlier.shape`, `outlier.size`, `outlier.stroke`, and `outlier.alpha` (`outlier.shape` takes a number from 1 to 25). 
+
+Unfortunately, you can't tell `geom_boxplot()` to ignore outliers completely, but you can make outliers disappear by setting `outlier.alpha = 0`. Try it in the plot below.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_boxplot(mapping = aes(x = cut, y = price), outlier.shape = 24, 
+               outlier.fill = "white", outlier.stroke = 0.25)
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = diamonds) +
+  geom_boxplot(mapping = aes(x = cut, y = price), outlier.alpha = 0)
+```
+
+:::
+
+
+### Aesthetics
+
+Boxplots recognize the following aesthetics: _alpha_, _color_, _fill_, _group_, _linetype_, _shape_, _size_, and _weight_.
+
+Of these _group_ can be the most useful. Consider the plot below. It uses a continuous variable on the $x$ axis. As a result, `geom_boxplot()` is not sure how to split the data into categories: it lumps all of the data into a single boxplot. The result reveals little about the relationship between carat and price.
+
+```{r out.width="80%", echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data = diamonds) +
+  geom_boxplot(mapping = aes(x = carat, y = price))
+```
+
+In the next sections, we'll use _group_ to make a more informative plot.
+
+### How to "cut" a continuous variable
+
+{ggplot2} provides three helper functions that you can use to split a continuous variable into categories. Each takes a continuous vector and returns a categorical vector that assigns each value to a group. For example, `cut_interval()` bins a vector into `n` equal length bins.
+
+```{r}
+continuous_vector <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+continuous_vector
+```
+
+```{r}
+cut_interval(continuous_vector, n = 3)
+```
+
+### The cut functions
+
+The three cut functions are
+
+* `cut_interval()` which makes `n` groups with equal range
+* `cut_number()` which makes `n` groups with (approximately) equal numbers of observations
+* `cut_width()` which makes groups with width `width`
+
+Use one of three functions below to bin `continuous_vector` into groups of `width = 2`.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+continuous_vector <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+continuous_vector
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+cut_width(continuous_vector, width = 2)
+```
+
+:::
+
+###
+
+Good job! Now let's apply the cut functions to our graph.
+
+### Exercise 4: Apply a cut function
+
+When you set the `group` aesthetic of a boxplot, `geom_boxplot()` will draw a separate boxplot for each collection of observations that have the same value of whichever vector you map to `group`. 
+
+This means we can split our `carat` plot by mapping `group` to the output of a cut function, as in the code below. Study the code, then modify it to create a separate boxplot for each 0.25 wide interval of `carat`.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_boxplot(mapping = aes(x = carat, y = price, group = cut_interval(carat, n = 2)))
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = diamonds) +
+  geom_boxplot(mapping = aes(x = carat, y = price, group = cut_width(carat, width = 0.25)))
+```
+
+:::
+
+###
+
+Good job! You can now see a relationship between price and carat. You could also make a scatterplot of these variables, but in this case, it would be a black mass of 54,000 data points.
+
+### Horizontal boxplots
+
+So far, we've been using categorical variables in the $x$ axis, which creates vertical boxplots. But what if you'd like to make horizontal boxplots, like in the plot below?
+
+```{r out.width="80%", echo=FALSE, message=FALSE}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = class, y = hwy)) +
+  coord_flip()
+```
+
+You can do this in two ways:
+
+- Swap the `x` and `y` aesthetics
+- Adding `+ coord_flip()` to your plot call
+
+
+
+### Exercise 5: Horizontal boxplots
+
+Modify the code below to make a horizontal boxplot by switching the `x = ` and `y = ` values:
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = class, y = hwy))
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = hwy, y = class))
+```
+
+:::
+
+\ 
+
+Modify the code below to make a horizontal boxplot by adding `coord_flip()`:
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = class, y = hwy))
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = class, y = hwy)) +
+  coord_flip()
+```
+
+:::
+
+###
+
+Good job!
+
+`coord_flip()` is an example of a new coordinate system. You'll learn much more about {ggplot2} coordinate systems in a later tutorial.
+
+I prefer to switch the `x` and `y` aesthetics instead of flipping the coordinates because it makes working with themes and legends a lot easier.
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("02-similar-geoms.html")
+```

@@ -1,0 +1,148 @@
+---
+title: "Covariation"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+
+### What is covariation? {.no-hide}
+
+If variation describes the behavior _within_ a variable, covariation describes the behavior _between_ variables. **Covariation** is the tendency for the values of two or more variables to vary together in a related way. The best way to spot covariation is to visualise the relationship between two or more variables. How you do that should again depend on whether your variables are categorical or continuous.
+
+### Two categorical variables
+
+You can plot the relationship between two categorical variables with a heatmap or with `geom_count()`:
+
+```{r echo=FALSE, out.width="100%"}
+#| layout-ncol: 2
+diamonds |> 
+  count(color, cut) |> 
+  ggplot(mapping = aes(x = color, y = cut)) +
+    geom_tile(mapping = aes(fill = n)) +
+    labs(title = "Color grade vs. cut quality for 53940 diamonds")
+
+ggplot(diamonds) +
+  geom_count(aes(color, cut)) +
+    labs(title = "Color grade vs. cut quality for 53940 diamonds")
+```
+
+Again, don't be concerned if you do not know how to make these graphs. For now, let's focus on the strategy of how to use visualizations in EDA. You'll learn how to make different types of plots in the tutorials that follow. 
+
+### One continuous and one categorical variable
+
+You can plot the relationship between one continuous and one categorical variable with a boxplot:
+
+```{r echo=FALSE, out.width="80%"}
+ggplot(mpg) +
+  geom_boxplot(aes(reorder(class, hwy, median), hwy)) +
+    labs(title = "Pickup trucks and SUVs display the lowest fuel efficiency") +
+    labs(x = "class")
+```
+
+### Two continuous variables
+
+You can plot the relationship between two continuous variables with a scatterplot:
+
+```{r echo=FALSE, message=FALSE, out.width="80%"}
+ggplot(data = faithful) +
+  geom_point(aes(x = eruptions, y = waiting)) + 
+  labs(title = "Length of eruption vs wait time before eruption")
+```
+
+### Patterns
+
+Patterns in your data provide clues about relationships. If a systematic relationship exists between two variables it will appear as a pattern in the data. If you spot a pattern, ask yourself:
+
++ Could this pattern be due to coincidence (i.e. random chance)?
+
++ How can you describe the relationship implied by the pattern?
+
++ How strong is the relationship implied by the pattern?
+
++ What other variables might affect the relationship?
+
++ Does the relationship change if you look at individual subgroups of the data?
+
+Remember that clusters and outliers are also a type of pattern. Two dimensional plots can reveal clusters and outliers that would not be visible in a one dimensional plot. If you spot either, ask yourself what they imply.
+
+### Review 6: Patterns
+
+The scatterplot below shows the relationship between the length of an eruption of Old Faithful and the wait time before the eruption (i.e. the amount of time that passed between it and the previous eruption).
+
+```{r echo=FALSE, message=FALSE, out.width="80%"}
+ggplot(data = faithful) +
+  geom_point(aes(x = eruptions, y = waiting)) + 
+  labs(title = "Length of eruption vs wait time before eruption")
+```
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Does the scatterplot above reveal a pattern that helps to explain the variation in lengths of Old Faithful eruptions?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "Yes. Long eruptions are associated with a _long_ wait before the eruption", 
+  options = c(
+    "No. There is no pattern.",
+    "Yes. Long eruptions are associated with a _short_ wait before the eruption",
+    "Yes. Long eruptions are associated with a _long_ wait before the eruption"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 1,
+  right = c("Correct! The data seems to suggest that a long build up before an eruption is associated with a long eruption. The plot also shows the two clusters that we saw before: there are long eruptions with a long build up and short eruptions with a short build up.")
+)
+```
+:::
+
+
+### Uncertainty 
+
+Patterns provide a useful tool for data scientists because they reveal covariation. If you think of variation as a phenomenon that creates uncertainty, covariation is a phenomenon that reduces it. When two variables covary, you can use the values of one variable to make better predictions about the values of the second. If the covariation is due to a causal relationship (a special case), you can use the value of one variable to control the value of the second.
+
+
+### Recap
+
+You've learned a lot in this tutorial. Here's what you should keep with you:
+
+* EDA is an iterative cycle built around asking and refining questions.
+* These two questions are always useful:
+    1. What type of variation occurs _within_ my variables?
+    1. What type of covariation occurs _between_ my variables?
+* Remember the definitions of _variables_, _values_, _observations_, _variation_, _covariation_, _categorical_, and _continuous_. You'll see them again. Frequently.
+
+Throughout the tutorial, you also encountered several recommendations for plots that visualize variation and covariation for categorical and continuous variables. Plots are a bit like questions in EDA: you should make many quickly and try anything that strikes your fancy. You can refine your plots later to share with others. A lot of refinement will occur naturally as you iterate during EDA. 
+
+The suggestions below can serve as starting point for visualizing data. In the tutorials that follow, you will learn how to make each type of plot, as well as how to use best practices and advanced skills when visualizing data.
+
+![](img/plots-table.png){width=80%}
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("04-bar-charts.html")
+```

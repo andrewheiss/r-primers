@@ -1,0 +1,196 @@
+---
+title: "Types"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+library(tidyverse)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+### Types {.no-hide}
+
+Watch [this video](https://vimeo.com/220490241):
+
+```{=html}
+<div class="ratio ratio-4x3">
+<iframe src="https://player.vimeo.com/video/220490241" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+```
+
+### Atomic types
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Which of these is not an atomic data type?**
+
+```{r types1, echo=FALSE}
+check_question(
+  answer = "simple", 
+  options = c(
+   "numeric/double",
+   "integer",
+   "character",
+   "logical",
+   "complex",
+   "raw",
+   "simple"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 1,
+  right = c("Correct!")
+)
+```
+
+:::
+
+### What type?
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**What type of data is `"1L"`?**
+
+```{r types2, echo=FALSE}
+check_question(
+  answer = "character", 
+  options = c(
+   "numeric/double",
+   "integer",
+   "character",
+   "logical"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 2,
+  right = c("Correct! This was tricky because of the quotes. 1L by itself would be an integer, but values become characters when they're in quotes.")
+)
+```
+
+:::
+
+### Integers
+
+Create a vector of integers from one to five. Can you imagine why you might want to use integers instead of numbers/doubles?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+c(1L, 2L, 3L, 4L, 5L)
+```
+
+:::
+
+
+### Floating point arithmetic
+
+Computers must use a finite amount of memory to store decimal numbers (which can sometimes require infinite precision). As a result, some decimals can only be saved as very precise approximations. From time to time you'll notice side effects of this imprecision, like below.
+
+Compute the square root of two, square the answer (e.g. multiply the square root of two by the square root of two), and then subtract two from the result. What answer do you expect? What answer do you get?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+sqrt(2) * sqrt(2) - 2
+sqrt(2)^2 - 2
+```
+
+:::
+
+
+### Vectors
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**How many types of data can you put into a single vector?**
+
+```{r types3, echo=FALSE}
+check_question(
+  answer = "1", 
+  options = c(
+   "1",
+   "6",
+   "As many as you like"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 3,
+  right = c("Correct!")
+)
+```
+
+:::
+
+### Character or object?
+
+One of the most common mistakes in R is to call an object when you mean to call a character string and vice versa.
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Which of these are object names? What is the difference between object names and character strings?**
+
+```{r types4, echo=FALSE}
+check_question(
+  answer = c("foo", "mu", "a"), 
+  options = c(
+   "foo",
+   '"num"',
+   "mu",
+   '"sigma"',
+   '"data"',
+   "a"
+  ), 
+  type = "checkbox", 
+  button_label = "Submit answer", 
+  q_id = 4,
+  right = c("Correct! Character strings are surrounded by quotation marks, object names are not.")
+)
+```
+
+:::
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("06-lists.html")
+```

@@ -1,0 +1,301 @@
+---
+title: "Histograms"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+          <script src="/js/bootstrapify.js"></script>
+
+engine: knitr
+filters:
+  - webr
+webr:
+  packages:
+    - ggplot2
+  cell-options:
+    editor-font-scale: 0.85
+    fig-width: 6
+    fig-height: 3.7
+    out-width: "70%"
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+library(tidyverse)
+library(checkdown)
+
+source(here::here("R", "helpers.R"))
+```
+
+### Introduction {.no-hide}
+
+Watch [this video](https://vimeo.com/221607341):
+
+```{=html}
+<div class="ratio ratio-4x3">
+<iframe src="https://player.vimeo.com/video/221607341" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+```
+
+### How to make a histogram
+
+To make a histogram with {ggplot2}, add `geom_histogram()` to the [ggplot2 template](/basics/01-visualization-basics/01-code-template.qmd). For example, the code below plots a histogram of the `carat` variable in the `diamonds` dataset, which comes with {ggplot2}.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat))
+
+
+```
+
+:::
+
+### The $y$ variable
+
+As with `geom_bar()`, you do not need to give `geom_histogram()` a $y$ variable. `geom_histogram()` will construct its own $y$ variable by counting the number of observations that fall into each bin on the $x$ axis. `geom_histogram()` will then map the counts to the $y$ axis. 
+
+As a result, you can glance at a bar to determine how many observations fall within a bin. Bins with tall bars highlight common values of the $x$ variable.
+
+### Exercise 1: Interpretation
+
+```{r out.width="80%", echo=FALSE, message=FALSE}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat))
+```
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**According to the chart, which is the most common carat size in the data?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "Approximately 0.3 or 0.4 carats", 
+  options = c(
+    "Approximately 0.3 or 0.4 carats",
+    "Approximately 1 carat",
+    "Approximately 1.5 carats",
+    "Approximately 2 carats"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 1,
+  right = c("Correct! More than 15,000 diamonds in the data have a value in the bin near 0.3 and 0.4. That's more than any other bin. How do we know? Because the bar above 0.3 to 0.4 goes to 15,000, higher than any other bar in the plot.")
+)
+```
+:::
+
+
+### `binwidth`
+
+By default, {ggplot2} will choose a binwidth for your histogram that results in about 30 bins. You can set the binwidth manually with the `binwidth` argument, which is interpreted in the units of the x axis:
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = 1)
+
+
+```
+
+:::
+
+### `bins`
+
+Alternatively, you can set the binwidth with the `bins` argument which takes the total number of bins to use:
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), bins = 10)
+
+
+```
+
+:::
+
+It can be hard to determine what the actual binwidths are when you use `bins`, since they may not be round numbers.
+
+### `boundary`
+
+You can move the bins left and right along the $x$ axis with the `boundary` argument. `boundary` takes an $x$ value to use as the boundary between two bins ({ggplot2} will align the rest of the bins accordingly): 
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), bins = 10, boundary = 0)
+
+
+```
+
+:::
+
+### Exercise 2: `binwidth`
+
+When you use `geom_histogram()`, you should always experiment with different binwidths because different size bins reveal different types of information.
+
+To see an example of this, make a histogram of the `carat` variable in the `diamonds` dataset. Use a bin size of 0.5 carats. What does the overall shape of the distribution look like?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = _____)
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
+```
+
+:::
+
+###
+
+Good job! The most common diamond size is about 0.5 carats. Larger sizes become progressively less frequent as carat size increases. This accords with general knowledge about diamonds, so you may be prompted to stop exploring the distribution of carat size. But should you?
+
+
+### Exercise 3: another `binwidth`
+
+Recreate your histogram of `carat` but this time use a `binwidth` of 0.1. Does your plot reveal new information? Look closely. Is there more than one peak? Where do the peaks occur?
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = 0.1)
+```
+
+:::
+
+###
+
+Good job! The new `binwidth` reveals a new phenomena: carat sizes like 0.5, 0.75, 1, 1.5, and 2 are much more common than carat sizes that do not fall near a common fraction. Why might this be?
+
+
+### Exercise 4: another `binwidth`
+
+Recreate your histogram of `carat` a final time, but this time use a `binwidth` of 0.01 and set the first boundary to zero. Try to find one new pattern in the results.
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = 0.01, boundary = 0)
+```
+
+:::
+
+###
+
+Good job! The new `binwidth` reveals another phenomena: each peak is very right skewed. In other words, diamonds that are 1.01 carats are much more common than diamonds that are .99 carats. Why would that be?
+
+
+### Aesthetics
+
+Visually, histograms are very similar to bar charts. As a result, they use the same aesthetics: _alpha_, _color_, _fill_, _linetype_, and _size_.
+
+They also behave in the same odd way when you use the color aesthetic. Do you remember what happens?
+
+::: {.callout-note appearance="simple" icon=false .question}
+
+**Which aesthetic would you use to color the interior fill of each bar in a histogram?**
+
+```{r echo=FALSE}
+check_question(
+  answer = "fill", 
+  options = c(
+    "color",
+    "fill"
+  ), 
+  type = "radio", 
+  button_label = "Submit answer", 
+  q_id = 2,
+  right = c('Correct! For geoms with "substance", like bars, fill controls the color of the interior of the geom. Color controls the outline.'),
+  wrong = "Not quite. For histograms, color controls color of the outline of each bar."
+)
+```
+:::
+
+
+### Exercise 5: Putting it all together
+
+Recreate the histogram below. 
+
+```{r out.width="80%", echo=FALSE, message=FALSE}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = price, fill = cut), binwidth = 1000, boundary = 0)
+```
+
+::: {.panel-tabset}
+## {{< fa code >}}&ensp;Interactive editor
+
+```{webr-r}
+
+
+
+```
+
+## {{< fa circle-check >}}&ensp;Solution
+
+```r
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = price, fill = cut), binwidth = 1000, boundary = 0)
+```
+
+:::
+
+###
+
+Good job! Did you ensure that each `binwidth` is 1000 and that the first boundary is zero?
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("02-similar-geoms.html")
+```

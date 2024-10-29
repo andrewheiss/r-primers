@@ -1,0 +1,43 @@
+---
+title: "Boxplots and counts"
+format:
+  html: 
+    toc: false
+    section-divs: true
+    include-after-body: 
+      - text: |
+          <script src="/js/progressive-reveal.js"></script>
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 6 * 0.618,
+  fig.retina = 3,
+  dev = "ragg_png",
+  fig.align = "center",
+  out.width = "70%"
+)
+
+source(here::here("R", "helpers.R"))
+```
+
+**Boxplots** display the relationship between a continuous variable and a categorical variable. **Count** plots display the relationship between two categorical variables. In this tutorial, you will learn how to use both. You will learn how to:
+
+* Make and interpret boxplots
+* Rotate boxplots by flipping the coordinate system of your plot
+* Use *violin* plots and *dotplots*, two geoms that are similar to boxplots
+* Make and interpret count plots
+
+The tutorial is adapted from [_R for Data Science_](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+
+The tutorial uses the {ggplot2} and {dplyr} packages, which have been pre-loaded for your convenience.
+
+
+##
+
+```{r}
+#| echo: false
+#| results: asis
+create_buttons("01-boxplots.html")
+```
