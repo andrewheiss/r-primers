@@ -166,7 +166,7 @@ ggplot(data = faithful) +
 
 ```{r echo=FALSE}
 check_question(
-  answer = "Correct thing", 
+  answer = "Yes. Two clusters.", 
   options = c(
     "No. There are no clusters.",
     "Yes. Two clusters.",
