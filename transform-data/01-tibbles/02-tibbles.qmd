@@ -1,7 +1,14 @@
 ---
 title: "tibbles"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,19 +16,14 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - tibble
     - babynames
-  autoload-packages: false
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -38,8 +40,9 @@ library(tidyverse)
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 library(babynames)
 ```
 
@@ -62,7 +65,7 @@ To see what I mean, use `library()` to load the tibble package in the chunk belo
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 

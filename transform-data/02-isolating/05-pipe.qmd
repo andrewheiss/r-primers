@@ -1,7 +1,14 @@
 ---
 title: "`|>`"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,19 +16,15 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - babynames
     - dplyr
     - ggplot2
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -94,7 +97,7 @@ Try to write your pipe without copying and pasting the code from above.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -124,7 +127,7 @@ Note that the first argument of `ggplot()` takes a data frame, which means you c
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 

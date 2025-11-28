@@ -1,7 +1,14 @@
 ---
 title: "`group_by()` and `summarize()`"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,19 +16,15 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - babynames
     - dplyr
     - ggplot2
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -48,8 +51,9 @@ top_10 <- babynames::babynames |>
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 tops <- babynames::babynames |> 
   group_by(name, sex) |> 
   summarise(total = sum(n)) |> 
@@ -102,7 +106,7 @@ Let's see what happens when we group with two columns:
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 babynames |>
   group_by(year, sex) |> 
   summarize(total = sum(n))
@@ -180,7 +184,7 @@ In the code chunk below, use `group_by()`, `summarize()`, and `arrange()` to dis
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -213,7 +217,7 @@ Use the code block below to plot a line graph of `prop` vs `year` for each name 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -236,7 +240,7 @@ Now use `top_10` to plot `n` vs `year` for each of the names. How are the plots 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 

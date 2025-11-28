@@ -1,7 +1,14 @@
 ---
 title: "Wide to long"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -10,18 +17,14 @@ format:
           <script src="/js/bootstrapify.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - tidyr
     - dplyr
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -54,8 +57,9 @@ cases2 <- tribble(
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 cases <- tribble(
   ~Country, ~"2011", ~"2012", ~"2013",
       "FR",    7000,    6900,    7000,
@@ -178,7 +182,7 @@ The result should contain three columns: `country`, `year`, and `cases`. Begin b
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 cases |> 
   pivot_longer(
     cols = c(`2011`, `2012`, `2013`), 
@@ -240,7 +244,7 @@ table4b
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -272,7 +276,7 @@ For example, `names_transform = list(week = as.integer)` would convert a charact
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 table4b |> 
   pivot_longer(
     cols = -country, 
@@ -318,7 +322,7 @@ To tidy this data, you would want to keep the first three columns as they are. C
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 

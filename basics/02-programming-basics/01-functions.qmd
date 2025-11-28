@@ -1,7 +1,14 @@
 ---
 title: "Functions"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,15 +16,9 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
-webr:
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 source(here::here("R", "helpers.R"))
@@ -40,7 +41,7 @@ Can you use the `sqrt()` function in the chunk below to compute the square root 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -61,7 +62,7 @@ Use the code chunk below to examine the code that `sqrt()` runs.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -86,7 +87,7 @@ Compare the code in `sqrt()` to the code in another R function, `lm()`. Examine 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -108,7 +109,7 @@ Wow! `lm()` runs a lot of code. What does it do? Open the help page for `lm()` i
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ?lm
 
 
@@ -134,7 +135,7 @@ What do you think the chunk below will return? Run it and see. The result should
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 # sqrt(962)
 
 

@@ -1,7 +1,14 @@
 ---
 title: "`mutate()`"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,19 +16,15 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - babynames
     - dplyr
     - ggplot2
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -50,7 +53,7 @@ Test this theory in the chunk below. Use `babynames` and groupwise summaries to 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -112,7 +115,7 @@ Use `mutate()` in the chunk below to create a `births` column, the result of div
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -163,7 +166,7 @@ Let's practice by ranking the entire dataset based on `prop`. In the chunk below
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -200,7 +203,7 @@ Add `group_by()` to our code from above, to calculate ranking within year and se
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 babynames |> 
   mutate(rank = min_rank(desc(prop)))
 
@@ -230,7 +233,7 @@ babynames |>
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 

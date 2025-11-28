@@ -65,6 +65,10 @@ $code-color: $gray-900 !default;
 
 
 /*-- scss:rules --*/
+.exercise-cell {
+  font-size: 85%;
+}
+
 .hidden {
   display: none;
 }
@@ -77,7 +81,7 @@ $code-color: $gray-900 !default;
   input[type="submit"] {
     margin-top: 0.75em;
   }
-  
+
   input[type="submit"] + div {
     margin-top: 0.5em;
   }

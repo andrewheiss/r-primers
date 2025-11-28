@@ -1,7 +1,14 @@
 ---
 title: "Scales"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,18 +16,14 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
     - RColorBrewer
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -44,8 +47,9 @@ p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_smooth(mapping = aes(color = cut), se = FALSE) + 
   labs(title = "Carat size vs. Price",
@@ -109,7 +113,7 @@ One of the most useful color palettes for discrete variables is `scale_color_bre
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p1 + scale_color_brewer()
 
 
@@ -137,7 +141,7 @@ Altogether, the {RColorBrewer} package contains 35 palettes. You can see each pa
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 #| fig-width: 6
 #| fig-height: 8
 RColorBrewer::display.brewer.all()
@@ -171,7 +175,7 @@ p1 + scale_color_brewer(palette = "Spectral")
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p1
 
 
@@ -231,7 +235,7 @@ Recreate the graph below, which uses a different palette from the {RColorBrewer}
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p_cont
 
 
@@ -271,7 +275,7 @@ Try each option with `p_cont` below. Determine which is the default.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p_cont + scale_color_viridis_c(option = "turbo")
 
 

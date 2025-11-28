@@ -1,7 +1,14 @@
 ---
 title: "Large data"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,18 +16,14 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
     - hexbin
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -73,7 +76,7 @@ Modify the code below to cut the carat axis into intervals with width 0.2. Then 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_boxplot(mapping = aes(x = carat, y = price))
 
@@ -114,7 +117,7 @@ Use one of these parameters to modify the graph below to use 40 bins on the x ax
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bin2d(mapping = aes(x = carat, y = price))
 
@@ -141,7 +144,7 @@ One way to avoid this, if you like, is to use `geom_hex()`. `geom_hex()` functio
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bin2d(mapping = aes(x = carat, y = price))
 
@@ -195,7 +198,7 @@ Often density2d plots are easiest to read when you plot them on top of the origi
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 

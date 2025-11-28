@@ -1,7 +1,14 @@
 ---
 title: "Legends"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,17 +16,13 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -49,8 +52,9 @@ p_cont <- ggplot(data = mpg) +
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 set.seed(1234)
 
 p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
@@ -94,7 +98,7 @@ Try this now. Move the legend in `p_cont` to the bottom of the graph.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p_cont
 
 
@@ -119,7 +123,7 @@ Theme functions like `theme_grey()` and `theme_bw()` also adjust the legend posi
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = mpg) + 
   geom_jitter(mapping = aes(x = displ, y = hwy, color = hwy)) +
   theme_bw() +
@@ -166,7 +170,7 @@ Use `guides()` to remove each legend from the `p_legend` plot.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p_legend
 
 
@@ -245,7 +249,7 @@ Use the list of scale defaults above to relabel the legend in `p_cont`. The lege
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p_cont
 
 

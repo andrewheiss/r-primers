@@ -1,7 +1,14 @@
 ---
 title: "`filter()`"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,18 +16,14 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - babynames
     - dplyr
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -77,7 +80,7 @@ See if you can use the logical operators to manipulate our code below to show:
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 filter(babynames, name == "Sea")
 
 
@@ -100,7 +103,7 @@ When you use logical tests, be sure to look out for two common mistakes. One app
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 filter(babynames, name = "Sea")
 
 
@@ -123,7 +126,7 @@ Good job! Remember to use `==` instead of `=` when testing for equality.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 filter(babynames, name == Sea)
 
 
@@ -187,7 +190,7 @@ Use Boolean operators to alter the code chunk below to return only the rows that
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 filter(babynames, name == "Sea" | name == "Anemone")
 
 
@@ -210,7 +213,7 @@ Logical tests also invite two common mistakes that you should look out for. Each
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 filter(babynames, 10 < n < 20)
 
 
@@ -231,7 +234,7 @@ Good job! You cannot combine two logical tests in R without using a Boolean oper
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 filter(babynames, n == 5 | n == 6 | n == 7 | n == 8 | n == 9)
 
 

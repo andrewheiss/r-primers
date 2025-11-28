@@ -9,7 +9,7 @@ execute:
 website:
   title: "R Primers"
   bread-crumbs: false
-  
+
   repo-url: "https://github.com/andrewheiss/r-primers"
   repo-actions: [edit, issue]
 
@@ -21,11 +21,11 @@ website:
       - icon: github
         aria-label: github
         href: https://github.com/andrewheiss/r-primers
-  
-  sidebar: 
+
+  sidebar:
     style: "docked"
     collapse-level: 2
-    contents: 
+    contents:
       - section: "Basics"
         contents:
         - auto: "basics/01-visualization-basics"
@@ -54,7 +54,7 @@ website:
 
 format:
   html:
-    theme: 
+    theme:
       - zephyr
       - html/custom.scss
     toc: true

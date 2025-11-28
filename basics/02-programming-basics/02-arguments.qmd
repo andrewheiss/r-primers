@@ -1,7 +1,14 @@
 ---
 title: "Arguments"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -10,15 +17,9 @@ format:
           <script src="/js/bootstrapify.js"></script>
 
 engine: knitr
-filters:
-  - webr
-webr:
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 library(tidyverse)
@@ -44,7 +45,7 @@ Watch [this video](https://vimeo.com/220490157):
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -91,7 +92,7 @@ Use `rnrom()` to generate 100 random normal values with a mean of 100 and a stan
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -112,7 +113,7 @@ Can you spot the error in the code below? Fix the code and then re-run it.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 rnorm(100, mu = 100, sd = 15)
 
 

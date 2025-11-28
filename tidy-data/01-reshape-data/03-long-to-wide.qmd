@@ -1,7 +1,14 @@
 ---
 title: "Long to wide"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -10,20 +17,16 @@ format:
           <script src="/js/bootstrapify.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - tidyr
     - dplyr
     - ggplot2
     - babynames
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -54,8 +57,9 @@ pollution <- tribble(
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 pollution <- tribble(
        ~city,   ~size, ~amount,
   "New York", "large",      23,
@@ -171,7 +175,7 @@ table1
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -252,7 +256,7 @@ Use {dplyr} functions to recreate this process in the chunk below.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 babynames
 
 
@@ -288,7 +292,7 @@ Use the data below to make the plot above, which was built with {ggplot2} functi
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 babynames |>
   group_by(year, sex) |> 
   summarise(total = sum(n))
@@ -356,7 +360,7 @@ Add to the code below to:
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 babynames |>
   group_by(year, sex) |> 
   summarise(total = sum(n))

@@ -2,16 +2,20 @@
 title: "About"
 sidebar: false
 
+format:
+  live-html: 
+    theme: 
+      - zephyr
+      - html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300
+
 engine: knitr
-filters:
-  - webr
-webr:
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
 ## A brief (and probably inaccurate) history of the RStudio/Posit Primers
 
@@ -31,9 +35,9 @@ Fortunately, the RStudio/Posit Education team [posted the source for the Primers
 
 ## The magic of webR
 
-Starting in 2023, [webR](https://docs.r-wasm.org/webr/latest/)—a version of R compiled to run with Javascript in a web browser—underwent rapid development, and a new Quarto extension ([{quarto-webr}](https://quarto-webr.thecoatlessprofessor.com/)) has since been developed to make it almost trivially easy to include Shiny-free interactive R chunks directly in the browser, like this:
+Starting in 2023, [webR](https://docs.r-wasm.org/webr/latest/)—a version of R compiled to run with Javascript in a web browser—underwent rapid development, and the [Quarto Live extension](https://r-wasm.github.io/quarto-live/) has since been developed to make it almost trivially easy to include Shiny-free interactive R chunks directly in the browser, like this:
 
-```{webr-r}
+```{webr}
 hist(faithful$waiting)
 
 
@@ -55,7 +59,7 @@ To simulate {learnr}'s hint and solution functionality, I use Quarto's [Tabset P
 ::: {.panel-tabset}
 ## {{{< fa code >}}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 # Calculate 1 + 2
 ```
 
@@ -75,7 +79,7 @@ To simulate {learnr}'s hint and solution functionality, I use Quarto's [Tabset P
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 # Calculate 1 + 2
 
 

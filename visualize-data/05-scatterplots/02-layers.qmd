@@ -1,7 +1,14 @@
 ---
 title: "Layers"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,21 +16,15 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
-  repos:
-    - https://slowkow.r-universe.dev
   packages:
     - ggplot2
     - dplyr
     - ggrepel
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -54,7 +55,7 @@ In {ggplot2}, you can add multiple geoms to a plot by adding multiple geom funct
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 mpg |> 
   group_by(class) |> 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
@@ -81,7 +82,7 @@ Use `geom_label_repel()` to add a new layer to our plot below. `geom_label_repel
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 mpg |> 
   group_by(class) |> 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
@@ -156,7 +157,7 @@ Reduce duplication in the code below by moving as many local mappings into the g
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 mpg |> 
   group_by(class) |> 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
@@ -200,7 +201,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -238,7 +239,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 mpg2 <- filter(mpg, class == "2seater")
 
 
@@ -276,7 +277,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -339,7 +340,7 @@ In the chunk below, use the `faithful` dataset to create a scatterplot that has 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -368,7 +369,7 @@ Why would you use `geom_jitter()`? Jittering provides a simple way to inspect pa
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = class, y = hwy))
 
@@ -398,7 +399,7 @@ Use the chunk below to create a boxplot of the previous graph. Arrange for the o
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 

@@ -1,7 +1,14 @@
 ---
 title: "Lists"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -10,15 +17,9 @@ format:
           <script src="/js/bootstrapify.js"></script>
 
 engine: knitr
-filters:
-  - webr
-webr:
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 library(tidyverse)
@@ -68,7 +69,7 @@ Make a list that contains the elements `1001`, `TRUE`, and `"stories"`. Give eac
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -90,7 +91,7 @@ Extract the number 1001 from the list below.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 things <- list(number = 1001, logical = TRUE, string = "stories")
 
 
@@ -112,7 +113,7 @@ You can make a data frame with the `data.frame()` function, which works similar 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 nums <- c(1, 2, 3, 4)
 logs <- c(TRUE, TRUE, FALSE, TRUE)
 strs <- c("apple", "banana", "carrot", "duck")
@@ -143,7 +144,7 @@ Given that a data frame is a type of list (with named elements), how could you e
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 nums <- c(1, 2, 3, 4)
 logs <- c(TRUE, TRUE, FALSE, TRUE)
 strs <- c("apple", "banana", "carrot", "duck")

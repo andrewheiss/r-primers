@@ -1,7 +1,14 @@
 ---
 title: "Similar geoms"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -10,8 +17,7 @@ format:
           <script src="/js/bootstrapify.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
@@ -19,12 +25,9 @@ webr:
     - forcats
     - gapminder
     - maps
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -50,8 +53,9 @@ tx <- map_data("state", region = "texas")
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 asia <- 
   gapminder |> 
   filter(country %in% c("China", "Korea, Dem. Rep.", "Korea, Rep.", "Japan")) |> 
@@ -67,7 +71,7 @@ tx <- map_data("state", region = "texas")
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(asia) +
   geom_line(mapping = aes(x = year, y = lifeExp, color = country, linetype = country))
 
@@ -94,7 +98,7 @@ Good job! You can control whether the steps move horizontally first and then ver
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(economics) +
   geom_line(mapping = aes(x = date, y = unemploy))
 
@@ -122,7 +126,7 @@ Do you recall from [Visualization Basics](/basics/01-visualization-basics/) how 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(economics) +
   geom_area(mapping = aes(x = date, y = unemploy))
 
@@ -152,7 +156,7 @@ Perhaps because of this, `geom_area()` can be quirky when you have multiple grou
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(asia) +
   geom_area(mapping = aes(x = year, y = lifeExp, fill = country))
 
@@ -173,7 +177,7 @@ You can fix this by changing the position adjustment for `geom_area()`. Give it 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(asia) +
   geom_area(mapping = aes(x = year, y = lifeExp, fill = country), alpha = 0.3)
 
@@ -210,7 +214,7 @@ economics2 <- economics |>
 economics2
 ```
 
-### g`eom_path()` example continued
+### `geom_path()` example continued
 
 If we plot the reordered data with both `geom_line()` and `geom_path()` we get two very different graphs. 
 
@@ -245,7 +249,7 @@ What do you think happens when you plot the data in `tx`? Run the code to find o
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(tx) +
   geom_path(mapping = aes(x = long, y = lat))
 

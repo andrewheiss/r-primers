@@ -1,26 +1,29 @@
 ---
 title: "Scatterplots"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300
     toc: false
     section-divs: true
-    include-after-body: 
+    include-after-body:
       - text: |
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
     - dplyr
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -47,7 +50,7 @@ The code below summarizes the mpg data set and begins to plot the results. Finis
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 mpg |> 
   group_by(class) |> 
   summarize(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
@@ -81,7 +84,7 @@ Convert the plot below from `geom_point()` to `geom_text()` and map the `label` 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 mpg |> 
   group_by(class) |> 
   summarize(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
@@ -147,7 +150,7 @@ In the code below, use `geom_smooth()` to draw the linear model line that fits t
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 mpg |> 
   group_by(class) |> 
   summarize(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 

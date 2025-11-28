@@ -1,7 +1,14 @@
 ---
 title: "Zooming"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,18 +16,14 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
     - dplyr
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -37,8 +40,9 @@ library(tidyverse)
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 p <- ggplot(diamonds) +
   geom_boxplot(mapping = aes(x = cut, y = price))
 ```
@@ -52,7 +56,7 @@ In the chunk below, make a plot that uses boxplots to display the relationship b
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -85,7 +89,7 @@ Now whenever you call `p`, R will draw your plot. Try it and see.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -152,7 +156,7 @@ Use `ylim()` to recreate our plot on the left from above. The plot zooms the $y$
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p
 
 
@@ -196,7 +200,7 @@ Try it below. Use `coord_cartesian()` to zoom `p` to the region where price fall
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p
 
 

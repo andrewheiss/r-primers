@@ -1,7 +1,14 @@
 ---
 title: "Maps"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,8 +16,7 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
@@ -19,12 +25,9 @@ webr:
     - sf
     - spData
     - maps
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -45,8 +48,9 @@ us <- map_data("state")
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 us <- map_data("state")
 
 USArrests2 <- USArrests |> 
@@ -83,7 +87,7 @@ Alter the code to retrieve and plot your home state (Try Idaho if you are outsid
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 
@@ -138,7 +142,7 @@ Which aesthetic can you use to plot multiple polygons? In the code below, map th
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(us) +
   geom_polygon(mapping = aes(x = long, y = lat))
 
@@ -211,7 +215,7 @@ Try running this to see what happens:
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot() +
   geom_sf(data = us_states)
 
@@ -231,7 +235,7 @@ Because {sf}-enabled datasets are tibbles, all our {dplyr} verbs work on them. F
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 us_states |> 
   filter(NAME == "Texas") |> 
   ggplot() +
@@ -285,7 +289,7 @@ Now that we have `UrbanPop` in our data, we can use it as an aesthetic. Try addi
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(us_states_merged) +
   geom_sf()
 
@@ -334,7 +338,7 @@ For example, here's our US map with an [Albers projection](https://epsg.io/10200
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(us_states_merged) +
   geom_sf(aes(fill = UrbanPop)) +
   coord_sf(crs = st_crs("ESRI:102003"))

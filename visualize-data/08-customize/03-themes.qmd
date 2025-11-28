@@ -1,7 +1,14 @@
 ---
 title: "Themes"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,18 +16,14 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
     - ggthemes
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -44,8 +47,9 @@ p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
 source(here::here("R", "helpers.R"))
 ```
 
-```{webr-r}
-#| context: setup
+```{webr}
+#| label: setup
+#| include: false
 p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_smooth(mapping = aes(color = cut), se = FALSE) + 
   labs(title = "Carat size vs. Price",
@@ -83,7 +87,7 @@ Use the box below to plot `p1` with each of the themes. Which theme do you prefe
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p1 + theme_bw()
 
 
@@ -125,7 +129,7 @@ Try plotting `p1` with at least two or three of the themes mentioned above.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 p1
 
 

@@ -1,7 +1,14 @@
 ---
 title: "Aesthetics"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -10,18 +17,14 @@ format:
           <script src="/js/bootstrapify.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
     - dplyr
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -55,7 +58,7 @@ One of these, `color`, creates the most surprising results. Predict what the cod
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, color = cut))
 
@@ -84,7 +87,7 @@ Use the code chunk below to experiment with fill, along with other `geom_bar()` 
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, color = cut))
 
@@ -101,7 +104,7 @@ You can control the width of each bar in your bar chart with the `width` paramet
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = cut), width = 0.9)
 
@@ -119,7 +122,7 @@ Create a colored bar chart of the `class` variable from the `mpg` data set, whic
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 
 
 

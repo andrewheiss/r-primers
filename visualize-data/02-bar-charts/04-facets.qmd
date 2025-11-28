@@ -1,7 +1,14 @@
 ---
 title: "Facets"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -10,17 +17,13 @@ format:
           <script src="/js/bootstrapify.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -57,7 +60,7 @@ The code chunks below show three ways to facet with `facet_grid()`. Spot the dif
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = color)) +
   facet_grid(rows = vars(clarity), cols = vars(cut))
@@ -70,7 +73,7 @@ ggplot(data = diamonds) +
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = color)) +
   facet_grid(cols = vars(cut))
@@ -83,7 +86,7 @@ ggplot(data = diamonds) +
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = color)) +
   facet_grid(rows = vars(clarity))
@@ -114,7 +117,7 @@ Add `facet_wrap()` to the code below to create the graph that appeared at the st
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = color, fill = cut))
 
@@ -145,7 +148,7 @@ Try changing the `scales` argument from `free` to `free_x` to `free_y` to see ho
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = color, fill = cut)) +
   facet_wrap(vars(cut), scales = "free")

@@ -8,3 +8,7 @@ _site/
 _freeze/
 **_cache/
 **_files/
+
+**/*.quarto_ipynb
+
+/.luarc.json

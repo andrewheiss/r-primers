@@ -1,7 +1,14 @@
 ---
 title: "Similar geoms"
 format:
-  html: 
+  live-html: 
+    theme: 
+      - zephyr
+      - ../../html/custom.scss
+    knitr:
+      opts_chunk:
+        dev: "ragg_png"
+        dpi: 300 
     toc: false
     section-divs: true
     include-after-body: 
@@ -9,17 +16,13 @@ format:
           <script src="/js/progressive-reveal.js"></script>
 
 engine: knitr
-filters:
-  - webr
+
 webr:
   packages:
     - ggplot2
-  cell-options:
-    editor-font-scale: 0.85
-    fig-width: 6
-    fig-height: 3.7
-    out-width: "70%"
 ---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(
@@ -47,7 +50,7 @@ Here each group functions like a vertical histogram. Add the parameter `stackdir
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = mpg) +
   geom_dotplot(mapping = aes(x = class, y = hwy), binaxis = "y", 
                dotsize = 0.5, binwidth = 1)
@@ -84,7 +87,7 @@ Convert the plot below from a boxplot to a violin plot. Note that violin plots d
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = mpg) +
   geom_boxplot(mapping = aes(x = class, y = hwy))
 
@@ -113,7 +116,7 @@ Add these lines to the violin plot below.
 ::: {.panel-tabset}
 ## {{< fa code >}}&ensp;Interactive editor
 
-```{webr-r}
+```{webr}
 ggplot(data = mpg) +
   geom_violin(mapping = aes(x = class, y = hwy))
 
